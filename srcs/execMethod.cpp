@@ -75,7 +75,7 @@ void execRequest::serveErrorPage()
 
 	this->setStatusCode();
     if (this->_error_pages.find(this->_error_code) != this->_error_pages.end())
-        path = this->_error_pages.find(this->_error_code)->second;
+		path = this->_error_pages.find(this->_error_code)->second;
 	if (path.empty())
 		return ;
 	fd = open(path.c_str(), O_RDONLY);

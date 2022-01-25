@@ -49,20 +49,27 @@ std::string parsingRoot(const std::string &loc_conf, const Location &general)
 std::string  parsingIPAddress(const std::string &conf, unsigned int *ip, int *port)
 {
     size_t  addr_index = conf.find("listen");
+    if (addr_index != 6 || conf[addr_index + 1] != ' ')
+    {
+        std::cout << "Error listen" << std::endl;
+        exit(EXIT_FAILURE);
+    }
     if (addr_index == std::string::npos)
         throw confNoListenException();
     addr_index = conf.find_first_not_of(" \t\n\r\v\f", addr_index + 7);
     *ip = convertIPAddress(conf, addr_index);
+    std::cout << "*conf = " << conf << std::endl;
     size_t port_index = conf.find(":", addr_index);
     if (port_index == std::string::npos)
         throw confIPAddrException();
     port_index++;
     size_t port_length = conf.find(";", port_index);
+    std::cout << "port_length  = " << port_length << std::endl;
     if (port_length == std::string::npos)
         throw confIPAddrException();
     *port = std::atoi(conf.substr(port_index, port_length - port_index).c_str());
     std::cout << "port = " << *port << std::endl;
-	if (*port < 0 || *port > 65535)
+	if (*port < 0 || *port > 65535 || isdigit(*port))
         throw confInvalidPortException();
     return (conf.substr(addr_index, conf.find(':', addr_index) - addr_index));
 }

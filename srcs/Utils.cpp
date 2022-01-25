@@ -34,11 +34,11 @@ int             ft_gnl(unsigned char *buf, int buf_start)
 
     if (!buf)
         return -1;
-	while (1)
+    while (1)
 	{
-		if (std::memchr(buf + buf_start + next_n, '\n', 1))
-			return (next_n);
-		next_n++;
+        if (std::memchr(buf + buf_start + next_n, '\n', 1))
+            return (next_n);
+        next_n++;
 	}
 }
 
