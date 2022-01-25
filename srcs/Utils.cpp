@@ -50,3 +50,38 @@ size_t ft_atoul(std::string ulong)
     ss >> x;
     return (x);
 }
+
+int	ft_atoi_parsing(const char *str)
+{
+	int i;
+	int n;
+	int neg;
+
+	i = 0;
+	n = 0;
+	neg = 1;
+	std::cout << str << std::endl;
+	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
+			|| str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			neg = -1;
+		i++;
+	}
+	std::cout << str + i << std::endl;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		n = n * 10 + (str[i++] - '0');
+	}
+	
+	if (str[i] != '\0')
+	{
+	 	std::cout << "Error listen, mauvais port" << std::endl;
+	    exit(EXIT_FAILURE);
+	}
+	return (n * neg);
+}
+
+

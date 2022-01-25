@@ -18,8 +18,10 @@ static void			ctr_c(int num)
 	g_ctrl_c = 1;
 }
 
+
 int main (int ac, char **av) //the conf file is the only possible argument 
 {
+	
 	signal(SIGINT, &ctr_c);
 	if (ac == 2) // use the given conf file
 		Config(std::string(av[1]));

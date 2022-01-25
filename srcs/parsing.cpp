@@ -16,6 +16,8 @@
 // ***********  PARSING SERVER  *********** //
 // **************************************** //
 
+
+
 std::string parsingName(const std::string &conf)
 {
     size_t name_index = conf.find("server_name");
@@ -49,10 +51,13 @@ std::string parsingRoot(const std::string &loc_conf, const Location &general)
 std::string  parsingIPAddress(const std::string &conf, unsigned int *ip, int *port)
 {
     size_t  addr_index = conf.find("listen");
-    if (addr_index != 6 || conf[addr_index + 1] != ' ')
+    // std::cout << "addr_index = " << addr_index << std::endl;
+    // std::cout << "conf[7] = " << conf[7]  << std::endl ;
+    //std::cout << "conf[index + 5] = " << conf[addr_index + 6]  << std::endl ;
+    if (addr_index != 7 || conf[addr_index + 6] != ' ')
     {
-        std::cout << "Error listen" << std::endl;
-        exit(EXIT_FAILURE);
+         std::cout << "Error listen" << std::endl;
+         exit(EXIT_FAILURE);
     }
     if (addr_index == std::string::npos)
         throw confNoListenException();
@@ -67,9 +72,9 @@ std::string  parsingIPAddress(const std::string &conf, unsigned int *ip, int *po
     std::cout << "port_length  = " << port_length << std::endl;
     if (port_length == std::string::npos)
         throw confIPAddrException();
-    *port = std::atoi(conf.substr(port_index, port_length - port_index).c_str());
+    *port = ft_atoi_parsing(conf.substr(port_index, port_length - port_index).c_str());
     std::cout << "port = " << *port << std::endl;
-	if (*port < 0 || *port > 65535 || isdigit(*port))
+	if (*port < 0 || *port > 65535)
         throw confInvalidPortException();
     return (conf.substr(addr_index, conf.find(':', addr_index) - addr_index));
 }
