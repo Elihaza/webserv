@@ -6,7 +6,7 @@
 /*   By: ellarbi <ellarbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 15:34:32 by ellarbi           #+#    #+#             */
-/*   Updated: 2022/01/23 20:23:42 by ellarbi          ###   ########.fr       */
+/*   Updated: 2022/01/25 02:06:45 by ellarbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 static int     g_ctrl_c;
 
 // 42 MAC
-// # define CGI_PATH "/Users/schene/.brew/bin/php-cgi"
+// # define CGI_PATH "/Users/ellarbi/.brew/bin/php-cgi"
 // OTHER MAC
 // # define CGI_PATH "/usr/local/Cellar/php/8.0.7/bin/php-cgi"
 // VM or LINUX
