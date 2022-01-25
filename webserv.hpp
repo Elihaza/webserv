@@ -6,7 +6,7 @@
 /*   By: ellarbi <ellarbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 15:34:32 by ellarbi           #+#    #+#             */
-/*   Updated: 2022/01/25 02:06:45 by ellarbi          ###   ########.fr       */
+/*   Updated: 2022/01/25 21:03:39 by ellarbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int     g_ctrl_c;
 # include <fcntl.h>
 # include <errno.h>
 # include <dirent.h>
+# include <arpa/inet.h>
 
 # include <iostream>
 # include <string>
