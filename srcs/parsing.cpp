@@ -51,6 +51,7 @@ std::string parsingRoot(const std::string &loc_conf, const Location &general)
 std::string  parsingIPAddress(const std::string &conf, unsigned int *ip, int *port)
 {
     size_t  addr_index = conf.find("listen");
+    
     // std::cout << "addr_index = " << addr_index << std::endl;
     // std::cout << "conf[7] = " << conf[7]  << std::endl ;
     //std::cout << "conf[index + 5] = " << conf[addr_index + 6]  << std::endl ;
@@ -76,6 +77,20 @@ std::string  parsingIPAddress(const std::string &conf, unsigned int *ip, int *po
     std::cout << "port = " << *port << std::endl;
 	if (*port < 0 || *port > 65535)
         throw confInvalidPortException();
+    size_t i = conf.find('.');
+    int a = 0;
+    while(conf[i] != ':')
+    {
+        if (conf[i] == '.')
+            a++;
+        i++;
+    }
+    if (a > 3)
+    {
+        std::cout << "Error host" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
     return (conf.substr(addr_index, conf.find(':', addr_index) - addr_index));
 }
 
