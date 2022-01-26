@@ -21,10 +21,10 @@
 00/ Le code doit pouvoir compiler avec le standard c++98 et sans librairie externe.
 01/ Être compatible avec le navigateur de notre choix.
 02/ Être conforme à la norme HTTP 1.1 (Se référer à NGINX dans le doute).
-03/ Chacune des entrées/sorties doivent utiliser 1 seul POLL et être non-bloquante.
-04/ POLL doit vérifier la lecture et l’écriture en meme temps
+03/ Chacune des entrées/sorties doivent utiliser 1 seul select() et être non-bloquante.
+04/ select() doit vérifier la lecture et l’écriture en meme temps
 05/ Le serveur ne doit jamais être bloqué et le client doit être redirigé correctement si nécessaire.
-06/ Il est interdit de faire une opération lecture/écriture sans passer par POLL.
+06/ Il est interdit de faire une opération lecture/écriture sans passer par select().
 07/ Interdiction de vérifier la valeur ERRNO après une opération de lecture/écriture.
 08/ Une requête vers le serveur ne dois jamais rester en suspens.
 09/ Le serveur doit avoir des pages d’erreur par défaut si aucune n’est fournie.
@@ -32,7 +32,7 @@
 11/ Interdiction d’utiliser FORK pour autre chose que des CGIs.
 12/ Interdiction d’utiliser EXECVE pour lancer un autre serveur web.
 13/ Le programme doit avoir un fichier de configuration en argument, OU utiliser un chemin par défaut.
-14/ l n’y a pas besoin de se servir de POLL avant de lire le fichier de configuration.
+14/ l n’y a pas besoin de se servir de select() avant de lire le fichier de configuration.
 15/ Le serveur doit pouvoir servir un site web entièrement statique.
 16/ Le client doit pouvoir uploader des fichiers.
 17/ Les codes de réponse HTTP doivent être exacts.
