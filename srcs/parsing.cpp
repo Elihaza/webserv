@@ -16,7 +16,276 @@
 // ***********  PARSING SERVER  *********** //
 // **************************************** //
 
+/*************************************************************************/
 
+/* Code fait par Rayane*/
+
+void check_before_key(const std::string &str, size_t delimiteur, std::string cle)
+{
+    size_t k = 0;
+    while(str[k] == ' '  || str[k] == '\n' || str[k] == '\t' || str[k] == '\n' 
+    || str[k] == '\r' || str[k] == '\v' || str[k] == '\f')
+        k++;
+    if (k != delimiteur)
+    {
+        std::cout << "Erreur : character interdit avant le mot cle " << cle <<  std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+void check_max_body_size(const std::string &str, size_t addr_index)
+{
+   // size_t k = 0;
+    std::string cle = "max_body_size";
+    check_before_key(str, addr_index, cle);
+}
+
+void check_return(const std::string &str, size_t addr_index)
+{
+    //size_t k = 0;
+    std::string cle = "return";
+    check_before_key(str, addr_index, cle);
+}
+
+// void  check_index(const std::string &str, size_t addr_index)
+// {
+//    // size_t k = 0;
+//     std::string cle = "index";
+//     check_before_key(str, addr_index, cle);
+// }
+
+void  check_upload_path(const std::string &str, size_t addr_index)
+{
+    //size_t k = 0;
+    std::string cle = "upload_path";
+    check_before_key(str, addr_index, cle);
+}
+
+void  check_cgi_path(const std::string &str, size_t addr_index)
+{
+    //size_t k = 0;
+    std::string cle = "cgi_path";
+    check_before_key(str, addr_index, cle);
+}
+
+void  check_accepted_method(const std::string &str, size_t addr_index)
+{
+    //size_t k = 0;
+    std::string cle = "accepted_method";
+    check_before_key(str, addr_index, cle);
+}
+
+void  check_location(const std::string &str, size_t addr_index)
+{
+   // size_t k = 0;
+    std::string cle = "location";
+    check_before_key(str, addr_index, cle);
+}
+
+void  check_error_page(const std::string &str, size_t addr_index)
+{
+   // size_t k = 0;
+    std::string cle = "error_page";
+    check_before_key(str, addr_index, cle);
+}
+
+void  check_autoindex(const std::string &str, size_t addr_index)
+{
+    /*regarder si avant le mot cle j'ai un character interdit*/
+    size_t k = 0;
+    std::string cle = "autoindex";
+    check_before_key(str, addr_index, cle);
+    /*regarder si apres le mot cle j'ai un character interdit*/
+    k = addr_index + 9;
+    size_t addr_off = str.find("off");
+    size_t addr_on = str.find("on");
+
+    if (addr_on == std::string::npos && addr_off == std::string::npos)
+    {
+        std::cout << "Error: autoindex ni sur on ni sur off" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    if (addr_off != std::string::npos)
+    {
+        while(k != addr_off)
+        {
+            if(str[k] == ' '  || str[k] == '\n' || str[k] == '\t' || str[k] == '\n' 
+                || str[k] == '\r' || str[k] == '\v' || str[k] == '\f')
+            {
+                // std::cout << "str[k] = " << str[k] << std::endl;
+                k++;
+            }
+            else
+            {
+                std::cout << "Erreur : character interdit apres le mot cle autoindex" << std::endl;
+                exit(EXIT_FAILURE);
+            }
+        }
+    } 
+    else if(addr_on != std::string::npos)
+    {
+        while(k != addr_on)
+        {
+            if(str[k] == ' '  || str[k] == '\n' || str[k] == '\t' || str[k] == '\n' 
+                || str[k] == '\r' || str[k] == '\v' || str[k] == '\f')
+            {
+                // std::cout << "str[k] = " << str[k] << std::endl;
+                k++;
+            }
+            else
+            {
+                std::cout << "Erreur : character interdit apres le mot cle autoindex" << std::endl;
+                exit(EXIT_FAILURE);
+            }
+        }
+    }
+
+}
+
+void  check_root(const std::string &str, size_t addr_index)
+{
+    size_t k = 0;
+    while(str[k] == ' '  || str[k] == '\n' || str[k] == '\t' || str[k] == '\n' 
+    || str[k] == '\r' || str[k] == '\v' || str[k] == '\f')
+    {
+        k++;
+    }
+    
+    if (k != addr_index)
+    {
+        addr_index = str.find("location");
+        if (addr_index == std::string::npos)
+        {
+            /*probleme a cause du location/root_yeah*/
+            std::cout << "Erreur : character interdit avant le mot cle root" << std::endl; 
+            exit(EXIT_FAILURE);
+        }
+    }
+    
+}
+
+void  check_server_name(const std::string &str, size_t addr_index)
+{
+    /*regarder si avant le mot cle j'ai un character interdit*/
+    size_t k = 0;
+    std::string cle = "server_name";
+    check_before_key(str, addr_index, cle);
+    /*regarder si apres le mot cle j'ai un character interdit*/
+    k = addr_index + 11;
+    addr_index = str.find("localhost");
+    while(k != addr_index)
+    {
+        if(str[k] == ' '  || str[k] == '\n' || str[k] == '\t' || str[k] == '\n' 
+           || str[k] == '\r' || str[k] == '\v' || str[k] == '\f')
+        {
+            //std::cout << "str[k] = " << str[k] << std::endl;
+            k++;
+        }
+        else
+        {
+            std::cout << "Erreur : character interdit apres le mot cle server_name" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+    }
+}
+
+void  check_listen(const std::string &str, size_t addr_index)
+{
+    std::string cle = "listen";
+    check_before_key(str, addr_index, cle);
+    if (str[addr_index + 6] != ' ')
+    {
+        std::cout << "Error : character interdit apres le mot cle listen" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+void check_line_parsing(std::vector<std::string> &vect)
+{
+    size_t  addr_index = 0;
+    std::vector<std::string>::iterator it = vect.begin();
+    for (; it != vect.end() ; it++)
+    {
+       // std::cout << "dans mon vector = " << *it <<  " / et sa taille est de = " << (*it).size() << std::endl ;
+        
+        addr_index = it->find("listen");
+        if (addr_index != std::string::npos)
+        {
+            check_listen(*it, addr_index);
+        }
+        addr_index = it->find("server_name");
+        if (addr_index != std::string::npos)
+        {
+            check_server_name(*it, addr_index);
+        }
+        addr_index = it->find("root");
+        if (addr_index != std::string::npos)
+        {
+            check_root(*it, addr_index);
+        }
+        addr_index = it->find("autoindex");
+        if (addr_index != std::string::npos)
+        {
+            check_autoindex(*it, addr_index);
+        }
+        addr_index = it->find("error_page");
+        if (addr_index != std::string::npos)
+        {
+            check_error_page(*it, addr_index);
+        }
+        addr_index = it->find("location");
+        if (addr_index != std::string::npos)
+        {
+            check_location(*it, addr_index);
+        }
+        addr_index = it->find("accepted_method");
+        if (addr_index != std::string::npos)
+        {
+            check_accepted_method(*it, addr_index);
+        }
+        addr_index = it->find("cgi_path");
+        if (addr_index != std::string::npos)
+        {
+            check_cgi_path(*it, addr_index);
+        }
+        addr_index = it->find("upload_path");
+        if (addr_index != std::string::npos)
+        {
+            check_upload_path(*it, addr_index);
+        }
+        // addr_index = it->find("index");
+        // if (addr_index != std::string::npos)
+        // {
+        //     check_index(*it, addr_index);
+        // }
+        addr_index = it->find("return");
+        if (addr_index != std::string::npos)
+        {
+            check_return(*it, addr_index);
+        }
+        addr_index = it->find("max_body_size");
+        if (addr_index != std::string::npos)
+        {
+            check_max_body_size(*it, addr_index);
+        }
+  
+    }
+
+
+}
+
+void create_vect_conf(const std::string &conf)
+{
+    std::vector<std::string> vect;
+    std::istringstream input ; 
+    input.str(conf) ; 
+    for  ( std::string line ; std::getline( input, line) ;  )  { 
+        vect.push_back(line); 
+    }
+    check_line_parsing(vect);       
+}
+
+/*******************************************************************/
 
 std::string parsingName(const std::string &conf)
 {
@@ -33,8 +302,7 @@ std::string parsingName(const std::string &conf)
 std::string parsingRoot(const std::string &loc_conf, const Location &general)
 {
     std::string root;
-    size_t root_index = loc_conf.find("root");
-    
+    size_t root_index = loc_conf.find("root"); 
     if (root_index == std::string::npos) // pas de directive root dans la loc
     {
         if (general.getRoot().empty())  // pas de directive root dans le server non plus
@@ -50,31 +318,21 @@ std::string parsingRoot(const std::string &loc_conf, const Location &general)
 
 std::string  parsingIPAddress(const std::string &conf, unsigned int *ip, int *port)
 {
-    size_t  addr_index = conf.find("listen");
+    create_vect_conf(conf);
     
-    // std::cout << "addr_index = " << addr_index << std::endl;
-    // std::cout << "conf[7] = " << conf[7]  << std::endl ;
-    //std::cout << "conf[index + 5] = " << conf[addr_index + 6]  << std::endl ;
-    if (addr_index != 7 || conf[addr_index + 6] != ' ')
-    {
-         std::cout << "Error listen" << std::endl;
-         exit(EXIT_FAILURE);
-    }
+    size_t  addr_index = conf.find("listen");
     if (addr_index == std::string::npos)
         throw confNoListenException();
     addr_index = conf.find_first_not_of(" \t\n\r\v\f", addr_index + 7);
     *ip = convertIPAddress(conf, addr_index);
-    std::cout << "*conf = " << conf << std::endl;
     size_t port_index = conf.find(":", addr_index);
     if (port_index == std::string::npos)
         throw confIPAddrException();
     port_index++;
     size_t port_length = conf.find(";", port_index);
-    std::cout << "port_length  = " << port_length << std::endl;
     if (port_length == std::string::npos)
         throw confIPAddrException();
     *port = ft_atoi_parsing(conf.substr(port_index, port_length - port_index).c_str());
-    std::cout << "port = " << *port << std::endl;
 	if (*port < 0 || *port > 65535)
         throw confInvalidPortException();
     size_t i = conf.find('.');
@@ -90,7 +348,6 @@ std::string  parsingIPAddress(const std::string &conf, unsigned int *ip, int *po
         std::cout << "Error host" << std::endl;
         exit(EXIT_FAILURE);
     }
-
     return (conf.substr(addr_index, conf.find(':', addr_index) - addr_index));
 }
 
@@ -222,7 +479,7 @@ std::map<int, std::string>    parsingErrorPage(const Location &location, const L
         index = location_conf.find_first_not_of(" \t\n\r\v\f", index);
         // code 
         length = location_conf.find_first_not_of("0123456789", index) - index;
-        std::cout << "lengit = " << length << std::endl;
+      //  std::cout << "lengit = " << length << std::endl;
 		code = std::atoi(location_conf.substr(index, length).c_str());
         index += length;
         index = location_conf.find_first_not_of(" \t\n\r\v\f", index);
@@ -231,7 +488,7 @@ std::map<int, std::string>    parsingErrorPage(const Location &location, const L
         if (end == std::string::npos)
             throw confInvalidErrorPageException();
         page_path = location_conf.substr(index, end - index);
-		std::cout << "page error ? = " << page_path << std::endl;
+	//	std::cout << "page error ? = " << page_path << std::endl;
         page_path.insert(0, location.getRoot() + "/");
         index += end - index;
         if (lstat(page_path.c_str(), &statbuf) == - 1)
