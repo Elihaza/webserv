@@ -89,11 +89,11 @@ void                   Location:: _test_upload_path()
         std::string     tmp = this->_root + this->_upload_path;
         struct stat     statbuf;
 
-        if (lstat(tmp.c_str(), &statbuf) == - 1)
-        {
-            this->_upload_path.clear();
-            throw confInvalidUploadException();
-        }
+        // if (lstat(tmp.c_str(), &statbuf) == - 1)
+        // {
+        //     this->_upload_path.clear();
+        //     throw confInvalidUploadException();
+        // }
         this->_upload_path.erase(0, 1);
     }
 }

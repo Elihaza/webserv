@@ -8,3 +8,11 @@ Pour tous mots-clés comme : "error_page", "listen", "root", "autoindex" etc -> 
 
 
 ESPACE EN TROP = OSEF
+
+
+
+Reste a faire rayane:
+location
+return
+autoindex off ou on
+accepted_method
