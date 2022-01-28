@@ -14,5 +14,26 @@ ESPACE EN TROP = OSEF
 Reste a faire rayane:
 location
 return
-autoindex off ou on
+autoindex off ou on // ok
 accepted_method
+
+
+
+
+//  sur chaque ligne on verifie le nbr de mot pour check si il y a les bon argument
+    lettre bisare avant le mot cle ou l'argument qui suit le mot cle
+    verifer si les dossier existe
+    verifier si on peu mettre quelque chose apres le;    // je concidere que ce nest pas une erreur meme si cest des lettre
+
+listen = parfait
+server_name = parfait
+root = parfait
+autoindex = parfait
+error_page = parfait
+location = parfait
+accepted_method = pas encore gerer
+index = parfait
+cgi_path = parfait
+return = pas encore gerer
+upload_path  = je voudrais changer le nom du dossier upload mais ne sait pas si ca casserai des chose 
+max_body_size  = ne sait pas si il faut gerer la taille ou mettre une securite pour que ca ne soit que 100

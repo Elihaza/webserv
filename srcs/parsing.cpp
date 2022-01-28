@@ -18,7 +18,70 @@
 
 /*************************************************************************/
 
+
 /* Code fait par Rayane*/
+
+void count_word_two(const std::string &str, std::string &cle)
+{
+    (void)cle;
+    size_t i = 0;
+   bool inSpaces = true;
+   int numWords = 0;
+
+   while (str[i])
+   {
+        if (str[i] == ';')
+            break;
+      if (std::isspace(str[i]) || str[i] == '{' || str[i] == ';')
+      {
+         inSpaces = true;
+      }
+      else if (inSpaces)
+      {
+         numWords++;
+         inSpaces = false;
+      }
+
+      i++;
+   }
+
+    std::cout << "nombre de mot = " << numWords << std::endl;
+   if (numWords > 2 || numWords == 1)
+   {
+       std::cout << "Error : probleme dans la ligne avec le mot cle " << cle << std::endl;
+       exit(EXIT_FAILURE);
+   }
+
+}
+
+void check_arg_key_after(const std::string &str, size_t delimiteur, const std::string cle, const std::string arg)
+{
+    size_t k = delimiteur + arg.size() + 1;
+
+
+    std::cout << "str [k] = " << str[k ] << std::endl;
+
+    if (str[k - 1] != ' '  && str[k - 1] != '\n' && str[k - 1] != '\t' && str[k - 1] != '\n' 
+      && str[k - 1] != '\r' && str[k - 1] != '\v' && str[k - 1] != '\f' && str[k - 1] != ';')
+    {
+        std::cout << "Error : mauvais argument apres le mot cle " << cle <<  std::endl;
+        exit(EXIT_FAILURE); 
+    }
+}
+
+void check_arg_key_before(const std::string &str, size_t delimiteur, const std::string cle)
+{
+    // std::cout << "str befor = " << str[delimiteur - 1] << std::endl;
+    // exit(0);
+
+    if (str[delimiteur - 1] != ' ' && str[delimiteur - 1] != '\n' && str[delimiteur - 1] != '\t' && str[delimiteur - 1] != '\n'
+        && str[delimiteur - 1] != '\r' && str[delimiteur - 1] != '\v' && str[delimiteur - 1] != '\f')
+    {
+        std::cout << "Error : mauvais argument apres le mot cle " << cle <<  std::endl;
+        exit(EXIT_FAILURE);
+    }
+    
+}
 
 void check_nothing(const std::string &str)
 {
@@ -49,40 +112,8 @@ void check_before_key(const std::string &str, size_t delimiteur, std::string cle
     }
 }
 
-void check_after_key(const std::string &str, size_t delimiteur,  std::string cle)
-{
-    size_t k = delimiteur + cle.size() + 1;
-    std::cout<< "str = " << str << std::endl;
-    std::cout << "str[k] = " << str[k] << std::endl;
-    std::cout << "str[delimiteur] = " << str[delimiteur] << std::endl;
-    std::cout << "cle size = " << cle.size() << std::endl;
-    
-    if (str[k] != ' ' && str[k] != '\n' && str[k] != '\t' && str[k] != '\n' 
-            && str[k] != '\r' && str[k] != '\v' && str[k] != '\f')
-    {
-        std::cout << "je suis la" << std::endl;
-        std::cout << "Erreur : character interdit apres le mot cle " << cle <<  std::endl;
-        exit(EXIT_FAILURE);
-    }
-    while(str[k] && str[k] == ' '  || str[k] == '\n' || str[k] == '\t' || str[k] == '\n' 
-     || str[k] == '\r' || str[k] == '\v' || str[k] == '\f')
-        k++;
-    while (str[k] && str[k] != ' ' && str[k] != '\n' && str[k] != '\t' && str[k] != '\n' 
-            && str[k] != '\r' && str[k] != '\v' && str[k] != '\f')
-        k++;
-    while( str[k] && str[k] == ' '  || str[k] == '\n' || str[k] == '\t' || str[k] == '\n' 
-     || str[k] == '\r' || str[k] == '\v' || str[k] == '\f' || str[k] == ';')
-        k++;
-    if (str[k - 1] != ';')
-    {
-        std::cout << "Erreur : character interdit apres le mot cle " << cle <<  std::endl;
-        exit(EXIT_FAILURE);
-    }
-}
-
 void check_max_body_size(const std::string &str, size_t addr_index)
 {
-   // size_t k = 0;
    addr_index = str.find("max_body_size");
     std::string cle = "max_body_size";
     check_before_key(str, addr_index, cle);
@@ -93,7 +124,7 @@ void check_max_body_size(const std::string &str, size_t addr_index)
         std::cout << "Error : character interdit apres le mot cle methode_body_size" << std::endl;
         exit(EXIT_FAILURE);
     }
-    check_after_key(str, addr_index, cle);
+    count_word_two(str, cle);
 }
 
 void check_return(const std::string &str, size_t addr_index)
@@ -123,7 +154,32 @@ void  check_index(const std::string &str, size_t addr_index)
         std::cout << "Error : character interdit apres le mot cle index" << std::endl;
         exit(EXIT_FAILURE);
     }
-    check_after_key(str, addr_index, cle);
+
+    k = addr_index + 5;
+    if (str[k] != ' ' && str[k] != '\n' && str[k] != '\t' && str[k] != '\n' 
+            && str[k] != '\r' && str[k] != '\v' && str[k] != '\f')
+    {
+        std::cout << "Error : character interdit apres le mot cle index" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    count_word_two(str, cle);
+
+    if(str.find("youpi.bla") != std::string::npos)
+    {
+        check_arg_key_before(str, str.find("youpi.bla"), "index");
+        check_arg_key_after(str, str.find("youpi.bla"), cle, "youpi.bla");
+
+    }
+    else if (str.find("happy.bad_extension") != std::string::npos)
+    {
+        check_arg_key_before(str, str.find("happy.bad_extension"), cle);
+        check_arg_key_after(str, str.find("happy.bad_extension"), cle, "happy.bad_extension");
+    }
+    else
+    {
+        std::cout << "Error : mauvais argument mot cle index" << std::endl;
+        exit(EXIT_FAILURE);
+    }
 }
 
 void  check_upload_path(const std::string &str, size_t addr_index)
@@ -139,7 +195,7 @@ void  check_upload_path(const std::string &str, size_t addr_index)
         std::cout << "Error : character interdit apres le mot cle upload_path" << std::endl;
         exit(EXIT_FAILURE);
     }
-    check_after_key(str, addr_index, cle);
+    count_word_two(str, cle);
 }
 
 void  check_cgi_path(const std::string &str, size_t addr_index)
@@ -154,7 +210,25 @@ void  check_cgi_path(const std::string &str, size_t addr_index)
         std::cout << "Error : character interdit apres le mot cle cgi_path" << std::endl;
         exit(EXIT_FAILURE);
     }
-    check_after_key(str, addr_index, cle);
+    k = addr_index + 8;
+    if (str[k] != ' ' && str[k] != '\n' && str[k] != '\t' && str[k] != '\n' 
+            && str[k] != '\r' && str[k] != '\v' && str[k] != '\f')
+    {
+        std::cout << "Error : character interdit apres le mot cle cgi_path" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    count_word_two(str, cle);
+
+    if(str.find("/usr/bin/php-cgi") != std::string::npos)
+    {
+        check_arg_key_before(str, str.find("/usr/bin/php-cgi"), cle);
+        check_arg_key_after(str, str.find("/usr/bin/php-cgi"), cle, "/usr/bin/php-cgi");
+    }
+    else
+    {
+        std::cout << "Error : mauvais argument mot cle cgi_path" << std::endl;
+        exit(EXIT_FAILURE);
+    }
 }
 
 void  check_accepted_method(const std::string &str, size_t addr_index)
@@ -170,14 +244,116 @@ void  check_accepted_method(const std::string &str, size_t addr_index)
         std::cout << "Error : character interdit apres le mot cle accepted_method" << std::endl;
         exit(EXIT_FAILURE);
     }
+
+    
 }
 
 void  check_location(const std::string &str, size_t addr_index)
 {
-   // size_t k = 0;
     addr_index = str.find("location");
     std::string cle = "location";
     check_before_key(str, addr_index, cle);
+    size_t  k = addr_index + 8;
+    if (str[k] != ' ' && str[k] != '\n' && str[k] != '\t' && str[k] != '\n' 
+            && str[k] != '\r' && str[k] != '\v' && str[k] != '\f')
+    {
+        std::cout << "Error : character interdit apres le mot cle location" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    std::cout << "str = " << str << std::endl;
+
+    if (str.find("/upload") != std::string::npos)
+    {
+        addr_index = str.find("/upload");
+        check_arg_key_before(str, addr_index, cle);
+        check_arg_key_after(str, addr_index, cle, "/upload");
+        count_word_two(str, cle);
+    }
+
+    else if (str.find("/bonjour_yeah") != std::string::npos)
+    {
+        addr_index = str.find("/bonjour_yeah");
+        check_arg_key_before(str, addr_index, cle);
+        check_arg_key_after(str, addr_index, cle, "/bonjour_yeah");
+        count_word_two(str, cle);
+    }
+    else if (str.find("/Yeah") != std::string::npos)
+    {
+        addr_index = str.find("/Yeah");
+        check_arg_key_before(str, addr_index, cle);
+        check_arg_key_after(str, addr_index, cle, "/Yeah");
+        count_word_two(str, cle);
+    }
+    else if (str.find("/redirect") != std::string::npos)
+    {
+        addr_index = str.find("/redirect");
+        check_arg_key_before(str, addr_index, cle);
+        check_arg_key_after(str, addr_index, cle, "/redirect");
+        count_word_two(str, cle);
+    }
+    else if (str.find("/bonjour_yeah") != std::string::npos)
+    {
+        addr_index = str.find("/bonjour_yeah");
+        check_arg_key_before(str, addr_index, cle);
+        check_arg_key_after(str, addr_index, cle, "/bonjour_yeah");
+        count_word_two(str, cle);
+    }
+    else if (str.find("/code_is_fun") != std::string::npos)
+    {
+        addr_index = str.find("/code_is_fun");
+        check_arg_key_before(str, addr_index, cle);
+        check_arg_key_after(str, addr_index, cle, "/code_is_fun");
+        count_word_two(str, cle);
+    }
+    else if (str.find("/directory") != std::string::npos)
+    {
+        addr_index = str.find("/directory");
+        check_arg_key_before(str, addr_index, cle);
+        check_arg_key_after(str, addr_index, cle, "/directory");
+        count_word_two(str, cle);
+    }
+    else if (str.find("/img") != std::string::npos)
+    {
+        addr_index = str.find("/img");
+        check_arg_key_before(str, addr_index, cle);
+        check_arg_key_after(str, addr_index, cle, "/img");
+        count_word_two(str, cle);
+    }
+    
+    else if (str.find("/post_body") != std::string::npos)
+    {
+        addr_index = str.find("/post_body");
+        check_arg_key_before(str, addr_index, cle);
+        check_arg_key_after(str, addr_index, cle, "/post_body");
+        count_word_two(str, cle);
+    }
+    
+     else
+     {
+         size_t j = 0;
+         size_t i = 0;
+         while (str[j])
+         {
+             if (str[j] == '/')
+                i++;
+            j++;
+         }
+        if (i > 1)
+        {
+            std::cout << "Error : mot cle location" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+        else
+        {
+            addr_index = str.find("/");
+            check_arg_key_before(str, addr_index, cle);
+            check_arg_key_after(str, addr_index, cle, "/");
+            count_word_two(str, cle);
+        }
+
+     }
+   // exit(0);
 }
 
 void  check_error_page(const std::string &str, size_t addr_index)
@@ -219,8 +395,21 @@ void  check_autoindex(const std::string &str, size_t addr_index)
         exit(EXIT_FAILURE);
     }
 
-    check_after_key(str, addr_index, cle);
-
+    
+    count_word_two(str, cle);
+    
+    if (addr_on != std::string::npos)
+    {
+        check_arg_key_before(str, addr_on, cle);
+        check_arg_key_after(str, addr_on, cle, "on");
+    }
+    
+    if (addr_off != std::string::npos)
+    {
+        check_arg_key_before(str, addr_off, cle);
+        check_arg_key_after(str, addr_off, cle, "off");
+    }
+    
 }
 
 void  check_root(const std::string &str, size_t addr_index)
@@ -244,8 +433,31 @@ void  check_root(const std::string &str, size_t addr_index)
             exit(EXIT_FAILURE);
         }
     }
-    check_after_key(str, addr_index,  cle);
+    k = addr_index + 4;
+    if (str[k] != ' ' && str[k] != '\n' && str[k] != '\t' && str[k] != '\n' 
+            && str[k] != '\r' && str[k] != '\v' && str[k] != '\f')
+    {
+        std::cout << "Error : character interdit apres le mot cle root" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    count_word_two(str, cle);
 
+    if (str.find("/YoupiBanane/bonjour_yeah") != std::string::npos)
+    {
+        check_arg_key_before(str, str.find("/YoupiBanane/bonjour_yeah"), cle);
+        check_arg_key_after(str, str.find("/YoupiBanane/bonjour_yeah"), cle, "/YoupiBanane/bonjour_yeah");
+    }
+    else if(str.find("/YoupiBanane") != std::string::npos)
+    {
+        check_arg_key_before(str, str.find("/YoupiBanane"), cle);
+        check_arg_key_after(str, str.find("/YoupiBanane"), cle, "/YoupiBanane");
+
+    }
+    else
+    {
+        std::cout << "Error : mauvais argument mot cle root" << std::endl;
+        exit(EXIT_FAILURE);
+    }
     
 }
 
@@ -256,13 +468,17 @@ void  check_server_name(const std::string &str, size_t addr_index)
     std::string cle = "server_name";
     addr_index = str.find("server_name");
     check_before_key(str, addr_index, cle);
+    if (str[addr_index + 11] != ' ')
+    {
+        std::cout << "Error : character interdit apres le mot cle server_name" << std::endl;
+        exit(EXIT_FAILURE);
+    }
     /*regarder si apres le mot cle j'ai un character interdit*/
-    check_after_key(str, addr_index,  cle);
+   count_word_two(str, cle);
 }
 
 void  check_listen(const std::string &str, size_t addr_index)
 {
-    std::cout << "oeoeoeoe" << std::endl;
     std::string cle = "listen";
     addr_index = str.find("listen");
     check_before_key(str, addr_index, cle);
@@ -275,6 +491,7 @@ void  check_listen(const std::string &str, size_t addr_index)
 
 void check_line_parsing(std::vector<std::string> &vect)
 {
+    /*fonction qui check tous les mot cle en appelant leur fonction et renvoi une erreur si il y a des ligne ou on met n'importe quoi*/
     size_t  addr_index = 0;
     std::vector<std::string>::iterator it = vect.begin();
     for (; it != vect.end() ; it++)
@@ -316,12 +533,10 @@ void check_line_parsing(std::vector<std::string> &vect)
         {
             check_upload_path(*it, addr_index);
         }
-      //  addr_index = it->find("index");
         else if (it->find("index") != std::string::npos)
         {
              check_index(*it, addr_index);
         }
-       // addr_index = it->find("return");
         else if (it->find("return") != std::string::npos)
         {
             check_return(*it, addr_index);
@@ -337,11 +552,11 @@ void check_line_parsing(std::vector<std::string> &vect)
   
     }
 
-
 }
 
 void create_vect_conf(const std::string &conf)
 {
+    /*fonction bonne qui met chaque ligne de la conf dans un vecteur*/
     std::vector<std::string> vect;
     std::istringstream input ; 
     input.str(conf) ; 
