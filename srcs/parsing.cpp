@@ -61,21 +61,21 @@ void    check_fichier_valide_index(const std::string &str, size_t addr_index)
     {
         while (std::isspace(str[addr_index]))
             addr_index++;
-
+        if (str[addr_index] == ';')
+            break;
         while (!std::isspace(str[addr_index]) && str[addr_index] != ';')
         {
             if (str[addr_index] ==  '.')
                 a++;
             addr_index++;
         }
+
         if (a != 1)
         {
             std::cout << "Error : probleme dans la ligne du mot cle index" << std::endl;
             exit(EXIT_FAILURE);
         }
         a = 0;
-        if (str[addr_index] == ';')
-            break;
         addr_index++;
     }
 
