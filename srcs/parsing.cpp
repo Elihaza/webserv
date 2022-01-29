@@ -21,6 +21,26 @@
 
 /* Code fait par Rayane*/
 
+
+void    check_fichier_valide_index(const std::string &str, size_t addr_index)
+{
+    int a = 0;
+    while (std::isspace(str[addr_index]))
+        addr_index++;
+    
+    while (str[addr_index])
+    {
+        if (str[addr_index] == '.')
+            a++;
+        addr_index++;
+    }
+    if (a != 1)
+    {
+        std::cout << "Error : probleme au niveau du mot cle index" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
 int count_word_two_and_four(const std::string &str, std::string &cle)
 {
     (void)cle;
@@ -300,6 +320,7 @@ void  check_index(const std::string &str, size_t addr_index)
     //     std::cout << "Error : mauvais argument mot cle index" << std::endl;
     //     exit(EXIT_FAILURE);
     // }
+    check_fichier_valide_index(str, k);
 }
 
 void  check_upload_path(const std::string &str, size_t addr_index)
