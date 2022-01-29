@@ -342,24 +342,7 @@ void  check_index(const std::string &str, size_t addr_index)
         std::cout << "Error : character interdit apres le mot cle index" << std::endl;
         exit(EXIT_FAILURE);
     }
-    //count_word_two(str, cle);
 
-    // if(str.find("youpi.bla") != std::string::npos)
-    // {
-    //     check_arg_key_before(str, str.find("youpi.bla"), "index");
-    //     check_arg_key_after(str, str.find("youpi.bla"), cle, "youpi.bla");
-
-    // }
-    // else if (str.find("happy.bad_extension") != std::string::npos)
-    // {
-    //     check_arg_key_before(str, str.find("happy.bad_extension"), cle);
-    //     check_arg_key_after(str, str.find("happy.bad_extension"), cle, "happy.bad_extension");
-    // }
-    // else
-    // {
-    //     std::cout << "Error : mauvais argument mot cle index" << std::endl;
-    //     exit(EXIT_FAILURE);
-    // }
     check_fichier_valide_index(str, k);
 }
 
