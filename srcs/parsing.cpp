@@ -21,24 +21,64 @@
 
 /* Code fait par Rayane*/
 
+void count_word_one_err(const std::string &str, const std::string &cle)
+{
+    (void)cle;
+    size_t i = 0;
+   bool inSpaces = true;
+   int numWords = 0;
+
+   while (str[i])
+   {
+        if (str[i] == ';')
+            break;
+      if (std::isspace(str[i]) || str[i] == '{' || str[i] == ';')
+      {
+         inSpaces = true;
+      }
+      else if (inSpaces)
+      {
+         numWords++;
+         inSpaces = false;
+      }
+
+      i++;
+   }
+
+   if (numWords == 1)
+   {
+       std::cout << "Error : probleme dans la ligne avec le mot cle " << cle << std::endl;
+       exit(EXIT_FAILURE);
+   }
+}
+
 
 void    check_fichier_valide_index(const std::string &str, size_t addr_index)
 {
     int a = 0;
-    while (std::isspace(str[addr_index]))
-        addr_index++;
-    
+    count_word_one_err(str, "index");
     while (str[addr_index])
     {
-        if (str[addr_index] == '.')
-            a++;
+        while (std::isspace(str[addr_index]))
+            addr_index++;
+
+        while (!std::isspace(str[addr_index]) && str[addr_index] != ';')
+        {
+            if (str[addr_index] ==  '.')
+                a++;
+            addr_index++;
+        }
+        if (a != 1)
+        {
+            std::cout << "Error : probleme dans la ligne du mot cle index" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+        a = 0;
+        if (str[addr_index] == ';')
+            break;
         addr_index++;
     }
-    if (a != 1)
-    {
-        std::cout << "Error : probleme au niveau du mot cle index" << std::endl;
-        exit(EXIT_FAILURE);
-    }
+
 }
 
 int count_word_two_and_four(const std::string &str, std::string &cle)
