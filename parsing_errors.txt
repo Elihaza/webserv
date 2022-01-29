@@ -35,5 +35,5 @@ accepted_method = pas encore gerer
 index = parfait
 cgi_path = parfait
 return = pas encore gerer
-upload_path  = je voudrais changer le nom du dossier upload mais ne sait pas si ca casserai des chose 
+upload_path  = parfait
 max_body_size  = ne sait pas si il faut gerer la taille ou mettre une securite pour que ca ne soit que 100

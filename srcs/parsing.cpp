@@ -21,6 +21,73 @@
 
 /* Code fait par Rayane*/
 
+int count_word_two_and_four(const std::string &str, std::string &cle)
+{
+    (void)cle;
+    size_t i = 0;
+   bool inSpaces = true;
+   int numWords = 0;
+
+   while (str[i])
+   {
+        if (str[i] == ';')
+            break;
+      if (std::isspace(str[i]) || str[i] == '{' || str[i] == ';')
+      {
+         inSpaces = true;
+      }
+      else if (inSpaces)
+      {
+         numWords++;
+         inSpaces = false;
+      }
+
+      i++;
+   }
+
+    std::cout << "nombre de mot = " << numWords << std::endl;
+   if (numWords > 4 || numWords == 1)
+   {
+       std::cout << "Error : probleme dans la ligne avec le mot cle " << cle << std::endl;
+       exit(EXIT_FAILURE);
+   }
+   return numWords;
+
+}
+
+void count_word_three(const std::string &str, std::string &cle)
+{
+    (void)cle;
+    size_t i = 0;
+   bool inSpaces = true;
+   int numWords = 0;
+
+   while (str[i])
+   {
+        if (str[i] == ';')
+            break;
+      if (std::isspace(str[i]) || str[i] == '{' || str[i] == ';')
+      {
+         inSpaces = true;
+      }
+      else if (inSpaces)
+      {
+         numWords++;
+         inSpaces = false;
+      }
+
+      i++;
+   }
+
+    std::cout << "nombre de mot = " << numWords << std::endl;
+   if (numWords > 3 || numWords == 1)
+   {
+       std::cout << "Error : probleme dans la ligne avec le mot cle " << cle << std::endl;
+       exit(EXIT_FAILURE);
+   }
+
+}
+
 void count_word_two(const std::string &str, std::string &cle)
 {
     (void)cle;
@@ -71,8 +138,6 @@ void check_arg_key_after(const std::string &str, size_t delimiteur, const std::s
 
 void check_arg_key_before(const std::string &str, size_t delimiteur, const std::string cle)
 {
-    // std::cout << "str befor = " << str[delimiteur - 1] << std::endl;
-    // exit(0);
 
     if (str[delimiteur - 1] != ' ' && str[delimiteur - 1] != '\n' && str[delimiteur - 1] != '\t' && str[delimiteur - 1] != '\n'
         && str[delimiteur - 1] != '\r' && str[delimiteur - 1] != '\v' && str[delimiteur - 1] != '\f')
@@ -125,6 +190,25 @@ void check_max_body_size(const std::string &str, size_t addr_index)
         exit(EXIT_FAILURE);
     }
     count_word_two(str, cle);
+
+    while (str[k] == ' ' || str[k] == '\n' || str[k] == '\t' || str[k] == '\n' 
+            || str[k] == '\r' || str[k] == '\v' || str[k] == '\f')
+    {
+        k++;
+    }
+
+    while(isdigit(str[k]))
+        k++;
+
+    if (str[k] != ' ' && str[k] != '\n' && str[k] != '\t' && str[k] != '\n' 
+            && str[k] != '\r' && str[k] != '\v' && str[k] != '\f' && str[k] != ';')
+    {
+        std::cout << "Error : probleme dans la ligne du mot cle methode_body_size" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+   
+
+
 }
 
 void check_return(const std::string &str, size_t addr_index)
@@ -140,6 +224,42 @@ void check_return(const std::string &str, size_t addr_index)
         std::cout << "Error : character interdit apres le mot cle return" << std::endl;
         exit(EXIT_FAILURE);
     }
+    count_word_three(str, cle);
+
+    size_t indicateur = 0;
+    while (std::isspace(str[k]))
+    {
+        k++;
+    }
+
+    while(isdigit(str[k]) && !std::isspace(str[k]))
+        k++;
+
+    if (str[k] != ' ' && str[k] != '\n' && str[k] != '\t' && str[k] != '\n' 
+            && str[k] != '\r' && str[k] != '\v' && str[k] != '\f' && str[k] != ';')
+    {
+        std::cout << "Error : probleme dans la ligne du mot cle return" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+   
+
+    if(str.find("http://localhost:8080/redirect_here/redirect.html") != std::string::npos)
+    {
+        check_arg_key_before(str, str.find("http://localhost:8080/redirect_here/redirect.html"), cle);
+        check_arg_key_after(str, str.find("http://localhost:8080/redirect_here/redirect.html"), cle, "http://localhost:8080/redirect_here/redirect.html");
+
+    }
+    else if (str.find("http://localhost:8080/img/42.png") != std::string::npos)
+    {
+        check_arg_key_before(str, str.find("http://localhost:8080/img/42.png"), cle);
+        check_arg_key_after(str, str.find("http://localhost:8080/img/42.png"), cle, "http://localhost:8080/img/42.png");
+    }
+    else
+    {
+        std::cout << "Error : mauvais argument mot return" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
 }
 
 void  check_index(const std::string &str, size_t addr_index)
@@ -196,6 +316,18 @@ void  check_upload_path(const std::string &str, size_t addr_index)
         exit(EXIT_FAILURE);
     }
     count_word_two(str, cle);
+    if(str.find("/download") != std::string::npos)
+    {
+        check_arg_key_before(str, str.find("/download"), cle);
+        check_arg_key_after(str, str.find("/download"), cle, "/download");
+
+    }
+
+    else
+    {
+        std::cout << "Error : mauvais argument mot cle upload" << std::endl;
+        exit(EXIT_FAILURE);
+    }
 }
 
 void  check_cgi_path(const std::string &str, size_t addr_index)
@@ -233,7 +365,6 @@ void  check_cgi_path(const std::string &str, size_t addr_index)
 
 void  check_accepted_method(const std::string &str, size_t addr_index)
 {
-
     addr_index = str.find("accepted_method");
     std::string cle = "accepted_method";
     check_before_key(str, addr_index, cle);
@@ -245,7 +376,99 @@ void  check_accepted_method(const std::string &str, size_t addr_index)
         exit(EXIT_FAILURE);
     }
 
-    
+    size_t indicateur = count_word_two_and_four(str, cle);
+
+    if (indicateur == 4)
+    {
+        if(str.find("GET") != std::string::npos && str.find("POST") != std::string::npos && str.find("DELETE") != std::string::npos)
+        {
+
+
+            if (str.find("GET") != std::string::npos)
+            {
+                check_arg_key_before(str, str.find("GET"), cle);
+                check_arg_key_after(str, str.find("GET"), cle, "GET");
+            }
+            else
+            {
+
+                std::cout << "Error : mauvais argument mot cle accepted_method" << std::endl;
+                exit(EXIT_FAILURE);
+            }
+            
+            if (str.find("DELETE") != std::string::npos)
+            {
+                
+                check_arg_key_before(str, str.find("DELETE"), cle);
+                check_arg_key_after(str, str.find("DELETE"), cle, "DELETE");
+            }
+            else
+            {
+
+                std::cout << "Error : mauvais argument mot cle accepted_method" << std::endl;
+                exit(EXIT_FAILURE);
+            }
+
+            if (str.find("POST") != std::string::npos)
+            {
+                check_arg_key_before(str, str.find("POST"), cle);
+                check_arg_key_after(str, str.find("POST"), cle, "POST");
+            }
+            else
+            {
+
+                std::cout << "Error : mauvais argument mot cle accepted_method" << std::endl;
+                exit(EXIT_FAILURE);
+            }
+
+        }
+
+        else
+        {
+                std::cout << "Error : mauvais argument mot cle accepted_method" << std::endl;
+                exit(EXIT_FAILURE);
+        }
+    }
+
+    if (indicateur == 2)
+    {
+        if (str.find("GET") != std::string::npos)
+        {
+                check_arg_key_before(str, str.find("GET"), cle);
+                check_arg_key_after(str, str.find("GET"), cle, "GET");
+        }
+        else if (str.find("DELETE") != std::string::npos)
+        {
+                check_arg_key_before(str, str.find("DELETE"), cle);
+                check_arg_key_after(str, str.find("DELETE"), cle, "DELETE");
+        }
+        else if (str.find("POST") != std::string::npos)
+        {
+                check_arg_key_before(str, str.find("POST"), cle);
+                check_arg_key_after(str, str.find("POST"), cle, "POST");
+        }
+        else
+        {
+            std::cout << "Error : mauvais argument mot cle accepted_method" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    if (indicateur == 3)
+    {
+        size_t a = 0;
+        if (str.find("GET") != std::string::npos)
+           a++;
+        if (str.find("POST") != std::string::npos)
+           a++;
+        if (str.find("DELETE") != std::string::npos)
+           a++;
+        if (a != 2)
+        {
+            std::cout << "Error : mauvais argument mot cle accepted_method" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+    }
 }
 
 void  check_location(const std::string &str, size_t addr_index)
@@ -263,11 +486,11 @@ void  check_location(const std::string &str, size_t addr_index)
 
     std::cout << "str = " << str << std::endl;
 
-    if (str.find("/upload") != std::string::npos)
+    if (str.find("/download") != std::string::npos)
     {
-        addr_index = str.find("/upload");
+        addr_index = str.find("/download");
         check_arg_key_before(str, addr_index, cle);
-        check_arg_key_after(str, addr_index, cle, "/upload");
+        check_arg_key_after(str, addr_index, cle, "/download");
         count_word_two(str, cle);
     }
 
