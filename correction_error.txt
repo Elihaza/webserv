@@ -1,0 +1,41 @@
+                                    ======= SERVER =======
+
+- "Il ne doit y avoir qu'une seule lecture ou une seule écriture par client par sélection (ou équivalent). Demandez à
+vous montrer le code qui va de la sélection (ou équivalent) à la lecture et à l'écriture d'un client"
+
+- "Rechercher tous les read/recv/write/send sur un socket et vérifier que si une erreur est retournée le client est
+supprimé"
+
+- "Recherchez tous les read/recv/write/send et vérifiez si la valeur retournée est bien vérifiée. (vérifier
+uniquement -1 ou 0 n'est pas bon, vous devriez vérifier les deux)"
+
+
+                                ======= CONFIGURATION =======
+
+- " configurez plusieurs serveurs avec un nom d'hôte différent (utilisez quelque chose comme : curl --resolve
+example.com:80:127.0.0.1 http://example.com/)"
+
+- "limiter le body client (utilisez curl -X POST -H "Content-Type: plain/text" --data "BODY IS HERE écrivez
+quelque chose de plus court ou plus long que la limite du body")"
+
+- "configurer des routes dans un serveur vers différents répertoires"
+
+- "configurer un fichier par défaut à rechercher si vous demandez un répertoire"
+
+
+                                    ======= BASIC CHECKS =======
+
+- "DELETE request -> devrait fonctionner"
+
+                                    ======= NAVIGATEUR =======
+
+- "Regarder le request header"
+
+- "- Essayez de lister un répertoire"
+
+                                    ======= Port issues =======
+
+- ok
+
+                                    ======= SiEGE ET STRESS TEST =======
+
