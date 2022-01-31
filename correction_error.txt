@@ -18,11 +18,6 @@ example.com:80:127.0.0.1 http://example.com/)"
 - "limiter le body client (utilisez curl -X POST -H "Content-Type: plain/text" --data "BODY IS HERE écrivez
 quelque chose de plus court ou plus long que la limite du body")"
 
-- "configurer des routes dans un serveur vers différents répertoires"
-
-- "configurer un fichier par défaut à rechercher si vous demandez un répertoire"
-
-
                                     ======= BASIC CHECKS =======
 
 - "DELETE request -> devrait fonctionner"
@@ -31,7 +26,6 @@ quelque chose de plus court ou plus long que la limite du body")"
 
 - "Regarder le request header"
 
-- "- Essayez de lister un répertoire"
 
                                     ======= Port issues =======
 
@@ -39,3 +33,10 @@ quelque chose de plus court ou plus long que la limite du body")"
 
                                     ======= SiEGE ET STRESS TEST =======
 
+-ok
+
+
+
+                                          ========= leaks ==========
+
+- Still reachable trouver
