@@ -13,18 +13,18 @@ uniquement -1 ou 0 n'est pas bon, vous devriez vérifier les deux)"
                                 ======= CONFIGURATION =======
 
 - " configurez plusieurs serveurs avec un nom d'hôte différent (utilisez quelque chose comme : curl --resolve
-example.com:80:127.0.0.1 http://example.com/)"
+example.com:80:127.0.0.1 http://example.com/)" 
 
 - "limiter le body client (utilisez curl -X POST -H "Content-Type: plain/text" --data "BODY IS HERE écrivez
-quelque chose de plus court ou plus long que la limite du body")"
+quelque chose de plus court ou plus long que la limite du body")" =======> dimanche
 
                                     ======= BASIC CHECKS =======
 
-- "DELETE request -> devrait fonctionner"
+- "DELETE request -> devrait fonctionner"    =====> dimanche
 
                                     ======= NAVIGATEUR =======
 
-- "Regarder le request header"
+- "Regarder le request header"  =======> dimanche
 
 
                                     ======= Port issues =======
