@@ -360,18 +360,46 @@ void  check_upload_path(const std::string &str, size_t addr_index)
         exit(EXIT_FAILURE);
     }
     count_word_two(str, cle);
-    if(str.find("/download") != std::string::npos)
+    
+    int a = 0;
+    addr_index = k;
+    while (str[addr_index])
     {
-        check_arg_key_before(str, str.find("/download"), cle);
-        check_arg_key_after(str, str.find("/download"), cle, "/download");
+        while (std::isspace(str[addr_index]))
+        {
+            std::cout << "str[addr_index] = " << str[addr_index] << std::endl; 
+            addr_index++;
+        }
+        if (str[addr_index] == ';')
+            break;
+        while (!std::isspace(str[addr_index]) && str[addr_index] != ';')
+        {
+            std::cout << "str[addr_index] = " << str[addr_index] << std::endl; 
+            if (str[addr_index] ==  '/')
+                a++;
+            addr_index++;
+        }
 
+        if (a != 1)
+        {
+            std::cout << "Error : probleme dans la ligne du mot cle upload" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+        addr_index++;
     }
 
-    else
-    {
-        std::cout << "Error : mauvais argument mot cle upload" << std::endl;
-        exit(EXIT_FAILURE);
-    }
+    // if(str.find("/download") != std::string::npos)
+    // {
+    //     check_arg_key_before(str, str.find("/download"), cle);
+    //     check_arg_key_after(str, str.find("/download"), cle, "/download");
+
+    // }
+
+    // else
+    // {
+    //     std::cout << "Error : mauvais argument mot cle upload" << std::endl;
+    //     exit(EXIT_FAILURE);
+    // }
 }
 
 void  check_cgi_path(const std::string &str, size_t addr_index)
