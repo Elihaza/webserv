@@ -39,6 +39,8 @@ Config::~Config()
 
 int 	Config::readConfFile(char const *path)
 {
+	/*fonction qui recupere la config en regardan ligne par ligne si c'est un commentaire
+	si ce n'est pas un commentaire on ecrit la ligne dans _content suivi d'un retour a ligne*/
 	std::fstream conf_stream(path, std::ios_base::in); //open file for reading
 	char *line = NULL;
 	
@@ -59,7 +61,6 @@ int 	Config::readConfFile(char const *path)
 		conf_stream.getline(line, BUFF_SIZE);
 		if (!isCommentLine(line))
 		{
-			std::cout << "read confg , line = " << line << std::endl;
 			this->_content.append(line);
 			this->_content.push_back('\n');
 		}
@@ -84,6 +85,9 @@ std::string Config::singleServerConfig(size_t index)
 
 void	Config::createServers(void)
 {
+	/*regarde si il y a bien un ou plusieur server , check les acolade et stock les conf dans une liste 
+	chainer qui prend des pointeur sur Server */
+	
 	size_t last_found = _content.find("server", 0);
 	
 	while (last_found < _content.size() && last_found < std::string::npos)
@@ -98,6 +102,7 @@ void	Config::createServers(void)
 		}
 		last_found = _content.find("server", last_found);
 	}
+
 }
 
 void				Config::terminate_serv()

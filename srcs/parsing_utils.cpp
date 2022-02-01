@@ -16,6 +16,7 @@
 
 size_t findClosingBracket(const std::string &str, size_t begin)
 {
+    /*trouve l'accolade fermante*/
 	size_t end = begin;
 	size_t count = 1;
 	
@@ -32,6 +33,8 @@ size_t findClosingBracket(const std::string &str, size_t begin)
 
 std::string getScope(const std::string &str, size_t index)
 {
+    /*fonction qui regarde ce qu'il y a dans le scope server et renvoi tout ce qu'il 
+    y a dedans */
 	size_t open_bracket = str.find_first_not_of(" \t\n\r\v\f", index);
 	size_t close_bracket = findClosingBracket(str, open_bracket);
 	
