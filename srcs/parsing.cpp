@@ -606,104 +606,6 @@ void  check_location(const std::string &str, size_t addr_index)
         k++;
     }
 
-
-
-
-
-    std::cout << "str = " << str << std::endl;
-    //check_after_key(str, addr_index, cle);
-
-    // if (str.find("/download") != std::string::npos)
-    // {
-    //     addr_index = str.find("/download");
-    //     check_arg_key_before(str, addr_index, cle);
-    //     check_arg_key_after(str, addr_index, cle, "/download");
-    //     count_word_two(str, cle);
-    // }
-
-    // else if (str.find("/bonjour_yeah") != std::string::npos)
-    // {
-    //     addr_index = str.find("/bonjour_yeah");
-    //     check_arg_key_before(str, addr_index, cle);
-    //     check_arg_key_after(str, addr_index, cle, "/bonjour_yeah");
-    //     count_word_two(str, cle);
-    // }
-    // else if (str.find("/Yeah") != std::string::npos)
-    // {
-    //     addr_index = str.find("/Yeah");
-    //     check_arg_key_before(str, addr_index, cle);
-    //     check_arg_key_after(str, addr_index, cle, "/Yeah");
-    //     count_word_two(str, cle);
-    // }
-    // else if (str.find("/redirect") != std::string::npos)
-    // {
-    //     addr_index = str.find("/redirect");
-    //     check_arg_key_before(str, addr_index, cle);
-    //     check_arg_key_after(str, addr_index, cle, "/redirect");
-    //     count_word_two(str, cle);
-    // }
-    // else if (str.find("/bonjour_yeah") != std::string::npos)
-    // {
-    //     addr_index = str.find("/bonjour_yeah");
-    //     check_arg_key_before(str, addr_index, cle);
-    //     check_arg_key_after(str, addr_index, cle, "/bonjour_yeah");
-    //     count_word_two(str, cle);
-    // }
-    // else if (str.find("/code_is_fun") != std::string::npos)
-    // {
-    //     addr_index = str.find("/code_is_fun");
-    //     check_arg_key_before(str, addr_index, cle);
-    //     check_arg_key_after(str, addr_index, cle, "/code_is_fun");
-    //     count_word_two(str, cle);
-    // }
-    // else if (str.find("/directory") != std::string::npos)
-    // {
-    //     addr_index = str.find("/directory");
-    //     check_arg_key_before(str, addr_index, cle);
-    //     check_arg_key_after(str, addr_index, cle, "/directory");
-    //     count_word_two(str, cle);
-    // }
-    // else if (str.find("/img") != std::string::npos)
-    // {
-    //     addr_index = str.find("/img");
-    //     check_arg_key_before(str, addr_index, cle);
-    //     check_arg_key_after(str, addr_index, cle, "/img");
-    //     count_word_two(str, cle);
-    // }
-    
-    // else if (str.find("/post_body") != std::string::npos)
-    // {
-    //     addr_index = str.find("/post_body");
-    //     check_arg_key_before(str, addr_index, cle);
-    //     check_arg_key_after(str, addr_index, cle, "/post_body");
-    //     count_word_two(str, cle);
-    // }
-    
-    //  else
-    //  {
-    //      size_t j = 0;
-    //      size_t i = 0;
-    //      while (str[j])
-    //      {
-    //          if (str[j] == '/')
-    //             i++;
-    //         j++;
-    //      }
-    //     if (i > 1)
-    //     {
-    //         std::cout << "Error : mot cle location" << std::endl;
-    //         exit(EXIT_FAILURE);
-    //     }
-    //     else
-    //     {
-    //         addr_index = str.find("/");
-    //         check_arg_key_before(str, addr_index, cle);
-    //         check_arg_key_after(str, addr_index, cle, "/");
-    //         count_word_two(str, cle);
-    //     }
-
-    //  }
-   // exit(0);
 }
 
 void  check_error_page(const std::string &str, size_t addr_index)
@@ -762,8 +664,6 @@ void  check_error_page(const std::string &str, size_t addr_index)
         k++;
     }
 
-
-    /* mettre quelque securite*/
 }
 
 void  check_autoindex(const std::string &str, size_t addr_index)
@@ -849,23 +749,6 @@ void  check_root(const std::string &str, size_t addr_index)
         k++;
     }
 
-    // if (str.find("/YoupiBanane/bonjour_yeah") != std::string::npos)
-    // {
-    //     check_arg_key_before(str, str.find("/YoupiBanane/bonjour_yeah"), cle);
-    //     check_arg_key_after(str, str.find("/YoupiBanane/bonjour_yeah"), cle, "/YoupiBanane/bonjour_yeah");
-    // }
-    // else if(str.find("/YoupiBanane") != std::string::npos)
-    // {
-    //     check_arg_key_before(str, str.find("/YoupiBanane"), cle);
-    //     check_arg_key_after(str, str.find("/YoupiBanane"), cle, "/YoupiBanane");
-
-    // }
-    // else
-    // {
-    //     std::cout << "Error : mauvais argument mot cle root" << std::endl;
-    //     exit(EXIT_FAILURE);
-    // }
-    
 }
 
 void  check_server_name(const std::string &str, size_t addr_index)
