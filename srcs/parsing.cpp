@@ -588,12 +588,12 @@ void  check_location(const std::string &str, size_t addr_index)
     if (str[k] != '/')
     {
         std::cout << "Error : porbleme dans la ligne avec le mot cle location" << std::endl;
-        exit(0);
+        exit(-1);
     }
     if (str[++k] == '/')
     {
         std::cout << "Error : porbleme dans la ligne avec le mot cle location" << std::endl;
-        exit(0);
+        exit(-1);
     }
 
     while(!std::isspace(str[k]))
@@ -601,7 +601,7 @@ void  check_location(const std::string &str, size_t addr_index)
         if (str[k] == '/' && str[k + 1] == '/')
         {
             std::cout << "Error : porbleme dans la ligne avec le mot cle location" << std::endl;
-             exit(0);
+             exit(-1);
         }
         k++;
     }
@@ -719,6 +719,49 @@ void  check_error_page(const std::string &str, size_t addr_index)
         std::cout << "Error : character interdit apres le mot cle error_page" << std::endl;
         exit(EXIT_FAILURE);
     }
+
+    count_word_three(str, cle);
+
+    while (std::isspace(str[k]))
+    {
+        k++;
+    }
+
+    int a = 0;
+    int j = k;
+    while(isdigit(str[k]) && !std::isspace(str[k]))
+    {
+        a++;
+        k++;
+    }
+
+    if ((str[k] != ' ' && str[k] != '\n' && str[k] != '\t' && str[k] != '\n' 
+            && str[k] != '\r' && str[k] != '\v' && str[k] != '\f' && str[k] != ';') || a != 3)
+    {
+        std::cout << "Error : probleme dans la ligne du mot cle error_page" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    
+    std::string digit = str.substr(j, 3);
+
+    if (digit != "100" && digit != "200" && digit != "301" &&  digit != "400" &&  digit != "403" && 
+    digit != "404" &&  digit != "405" &&  digit != "411" &&  digit != "413" &&  digit != "500"  )
+    {
+        std::cout << "Error : probleme dans la ligne du mot cle error_page" << std::endl;
+        exit(-1);
+    }
+
+    while(str[k])
+    {
+        if (str[k] == '/' && str[k + 1] == '/')
+        {
+            std::cout << "Error : probleme dans la ligne du mot cle error_page" << std::endl;
+            exit(-1);
+        }
+        k++;
+    }
+
 
     /* mettre quelque securite*/
 }
