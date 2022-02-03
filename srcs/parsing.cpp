@@ -301,24 +301,61 @@ void check_return(const std::string &str, size_t addr_index)
         std::cout << "Error : probleme dans la ligne du mot cle return" << std::endl;
         exit(EXIT_FAILURE);
     }
-   
 
-    if(str.find("http://localhost:8080/redirect_here/redirect.html") != std::string::npos)
-    {
-        check_arg_key_before(str, str.find("http://localhost:8080/redirect_here/redirect.html"), cle);
-        check_arg_key_after(str, str.find("http://localhost:8080/redirect_here/redirect.html"), cle, "http://localhost:8080/redirect_here/redirect.html");
+    while(std::isspace(str[k]))
+        k++;
+    
+    k = str.find("http://");
 
-    }
-    else if (str.find("http://localhost:8080/img/42.png") != std::string::npos)
+    std::cout << "str = " << str << std::endl;
+    if (str[k] == std::string::npos)
     {
-        check_arg_key_before(str, str.find("http://localhost:8080/img/42.png"), cle);
-        check_arg_key_after(str, str.find("http://localhost:8080/img/42.png"), cle, "http://localhost:8080/img/42.png");
-    }
-    else
-    {
+        std::cout << "1" << std::endl;
         std::cout << "Error : mauvais argument mot return" << std::endl;
         exit(EXIT_FAILURE);
     }
+
+    else
+    {
+         check_arg_key_before(str, str.find("http://"), cle);
+        k = k + 7;
+        if (str[k] == '/')
+        {
+            std::cout << "2" << std::endl;
+            std::cout << "Error : mauvais argument mot return" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+        while (str[k])
+        {
+            if (str[k] == '/' && str[k + 1] == '/')
+            {
+                std::cout << "3" << std::endl;
+                std::cout << "Error : mauvais argument mot return" << std::endl;
+                exit(EXIT_FAILURE);
+            }
+            k++;
+        }
+    }
+
+
+   
+
+    // if(str.find("http://localhost:8080/redirect_here/redirect.html") != std::string::npos)
+    // {
+    //     check_arg_key_before(str, str.find("http://localhost:8080/redirect_here/redirect.html"), cle);
+    //     check_arg_key_after(str, str.find("http://localhost:8080/redirect_here/redirect.html"), cle, "http://localhost:8080/redirect_here/redirect.html");
+
+    // }
+    // else if (str.find("http://localhost:8080/img/42.png") != std::string::npos)
+    // {
+    //     check_arg_key_before(str, str.find("http://localhost:8080/img/42.png"), cle);
+    //     check_arg_key_after(str, str.find("http://localhost:8080/img/42.png"), cle, "http://localhost:8080/img/42.png");
+    // }
+    // else
+    // {
+    //     std::cout << "Error : mauvais argument mot return" << std::endl;
+    //     exit(EXIT_FAILURE);
+    // }
 
 }
 
@@ -367,7 +404,6 @@ void  check_upload_path(const std::string &str, size_t addr_index)
     {
         while (std::isspace(str[addr_index]))
         {
-            std::cout << "str[addr_index] = " << str[addr_index] << std::endl; 
             addr_index++;
         }
         if (str[addr_index] == ';')
@@ -375,31 +411,19 @@ void  check_upload_path(const std::string &str, size_t addr_index)
         while (!std::isspace(str[addr_index]) && str[addr_index] != ';')
         {
             std::cout << "str[addr_index] = " << str[addr_index] << std::endl; 
-            if (str[addr_index] ==  '/')
-                a++;
+            if (str[addr_index] ==  '/' && str[addr_index + 1] == '/')
+            {
+                std::cout << "Error : probleme dans la ligne du mot cle upload" << std::endl;
+                exit(EXIT_FAILURE);
+            }
+
             addr_index++;
         }
 
-        if (a != 1)
-        {
-            std::cout << "Error : probleme dans la ligne du mot cle upload" << std::endl;
-            exit(EXIT_FAILURE);
-        }
         addr_index++;
     }
 
-    // if(str.find("/download") != std::string::npos)
-    // {
-    //     check_arg_key_before(str, str.find("/download"), cle);
-    //     check_arg_key_after(str, str.find("/download"), cle, "/download");
 
-    // }
-
-    // else
-    // {
-    //     std::cout << "Error : mauvais argument mot cle upload" << std::endl;
-    //     exit(EXIT_FAILURE);
-    // }
 }
 
 void  check_cgi_path(const std::string &str, size_t addr_index)
