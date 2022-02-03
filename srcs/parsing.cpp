@@ -664,6 +664,8 @@ void  check_error_page(const std::string &str, size_t addr_index)
         std::cout << "Error : character interdit apres le mot cle error_page" << std::endl;
         exit(EXIT_FAILURE);
     }
+
+    /* mettre quelque securite*/
 }
 
 void  check_autoindex(const std::string &str, size_t addr_index)
@@ -737,22 +739,34 @@ void  check_root(const std::string &str, size_t addr_index)
     }
     count_word_two(str, cle);
 
-    if (str.find("/YoupiBanane/bonjour_yeah") != std::string::npos)
+    while (str[k])
     {
-        check_arg_key_before(str, str.find("/YoupiBanane/bonjour_yeah"), cle);
-        check_arg_key_after(str, str.find("/YoupiBanane/bonjour_yeah"), cle, "/YoupiBanane/bonjour_yeah");
-    }
-    else if(str.find("/YoupiBanane") != std::string::npos)
-    {
-        check_arg_key_before(str, str.find("/YoupiBanane"), cle);
-        check_arg_key_after(str, str.find("/YoupiBanane"), cle, "/YoupiBanane");
+        if (str[k] == '/' && str[k + 1] == '/')
+        {
+            std::cout << "Error : mauvais argument mot cle root" << std::endl;
+            exit(EXIT_FAILURE);
+        }
 
+
+        k++;
     }
-    else
-    {
-        std::cout << "Error : mauvais argument mot cle root" << std::endl;
-        exit(EXIT_FAILURE);
-    }
+
+    // if (str.find("/YoupiBanane/bonjour_yeah") != std::string::npos)
+    // {
+    //     check_arg_key_before(str, str.find("/YoupiBanane/bonjour_yeah"), cle);
+    //     check_arg_key_after(str, str.find("/YoupiBanane/bonjour_yeah"), cle, "/YoupiBanane/bonjour_yeah");
+    // }
+    // else if(str.find("/YoupiBanane") != std::string::npos)
+    // {
+    //     check_arg_key_before(str, str.find("/YoupiBanane"), cle);
+    //     check_arg_key_after(str, str.find("/YoupiBanane"), cle, "/YoupiBanane");
+
+    // }
+    // else
+    // {
+    //     std::cout << "Error : mauvais argument mot cle root" << std::endl;
+    //     exit(EXIT_FAILURE);
+    // }
     
 }
 
@@ -1067,8 +1081,11 @@ std::map<int, std::string>    parsingErrorPage(const Location &location, const L
 	//	std::cout << "page error ? = " << page_path << std::endl;
         page_path.insert(0, location.getRoot() + "/");
         index += end - index;
-        if (lstat(page_path.c_str(), &statbuf) == - 1)
-            throw confInvalidErrorPageException();
+        // if (lstat(page_path.c_str(), &statbuf) == - 1)
+        // {
+        //     std::cout << "stop" << std::endl;
+        //     throw confInvalidErrorPageException();
+        // }
         error_pages[code] = page_path;
     }
     if (error_pages.empty())
