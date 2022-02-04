@@ -12,30 +12,26 @@ uniquement -1 ou 0 n'est pas bon, vous devriez vérifier les deux)"
 
                                 ======= CONFIGURATION =======
 
-- " configurez plusieurs serveurs avec un nom d'hôte différent (utilisez quelque chose comme : curl --resolve
-example.com:80:127.0.0.1 http://example.com/)" 
-
-
+-ok
 
                                     ======= BASIC CHECKS =======
-
-- "DELETE request -> devrait fonctionner"    =====> dimanche
+-ok
 
                                     ======= NAVIGATEUR =======
 
-ok
-
+-ok
 
                                     ======= Port issues =======
 
-- ok
+-ok
 
                                     ======= SiEGE ET STRESS TEST =======
 
 -ok
 
-
-
                                           ========= leaks ==========
 
-- Still reachable trouver
+-Still reachable trouver
+
+
+
