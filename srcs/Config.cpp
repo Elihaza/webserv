@@ -6,7 +6,7 @@
 /*   By: ellarbi <ellarbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 09:49:40 by ellarbi           #+#    #+#             */
-/*   Updated: 2022/01/31 17:36:49 by ellarbi          ###   ########.fr       */
+/*   Updated: 2022/02/04 21:29:10 by ellarbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void	Config::createServers(void)
 	{
 		last_found += 7;
 		std::string single_server_conf = getScope(_content, last_found);
-		std::cout << "parsing : " << single_server_conf << std::endl;
 		if (!single_server_conf.empty())
 		{
 			Server *to_push = new Server(*this, single_server_conf);

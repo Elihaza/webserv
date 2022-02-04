@@ -6,7 +6,7 @@
 /*   By: ellarbi <ellarbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 14:13:12 by ellarbi           #+#    #+#             */
-/*   Updated: 2022/01/31 21:22:27 by ellarbi          ###   ########.fr       */
+/*   Updated: 2022/02/04 21:29:25 by ellarbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ int count_word_two_and_four(const std::string &str, std::string &cle)
       i++;
    }
 
-    std::cout << "nombre de mot = " << numWords << std::endl;
    if (numWords > 4 || numWords == 1)
    {
        std::cout << "Error : probleme dans la ligne avec le mot cle " << cle << std::endl;
@@ -139,7 +138,7 @@ void count_word_three(const std::string &str, std::string &cle)
       i++;
    }
 
-    std::cout << "nombre de mot = " << numWords << std::endl;
+
    if (numWords > 3 || numWords == 1)
    {
        std::cout << "Error : probleme dans la ligne avec le mot cle " << cle << std::endl;
@@ -172,7 +171,6 @@ void count_word_two(const std::string &str, std::string &cle)
       i++;
    }
 
-    std::cout << "nombre de mot = " << numWords << std::endl;
    if (numWords > 2 || numWords == 1)
    {
        std::cout << "Error : probleme dans la ligne avec le mot cle " << cle << std::endl;
@@ -185,8 +183,6 @@ void check_arg_key_after(const std::string &str, size_t delimiteur, const std::s
 {
     size_t k = delimiteur + arg.size() + 1;
 
-
-    std::cout << "str [k] = " << str[k ] << std::endl;
 
     if (str[k - 1] != ' '  && str[k - 1] != '\n' && str[k - 1] != '\t' && str[k - 1] != '\n' 
       && str[k - 1] != '\r' && str[k - 1] != '\v' && str[k - 1] != '\f' && str[k - 1] != ';')
@@ -307,10 +303,8 @@ void check_return(const std::string &str, size_t addr_index)
     
     k = str.find("http://");
 
-    std::cout << "str = " << str << std::endl;
     if (str[k] == std::string::npos)
     {
-        std::cout << "1" << std::endl;
         std::cout << "Error : mauvais argument mot return" << std::endl;
         exit(EXIT_FAILURE);
     }
@@ -321,7 +315,6 @@ void check_return(const std::string &str, size_t addr_index)
         k = k + 7;
         if (str[k] == '/')
         {
-            std::cout << "2" << std::endl;
             std::cout << "Error : mauvais argument mot return" << std::endl;
             exit(EXIT_FAILURE);
         }
@@ -329,33 +322,12 @@ void check_return(const std::string &str, size_t addr_index)
         {
             if (str[k] == '/' && str[k + 1] == '/')
             {
-                std::cout << "3" << std::endl;
                 std::cout << "Error : mauvais argument mot return" << std::endl;
                 exit(EXIT_FAILURE);
             }
             k++;
         }
     }
-
-
-   
-
-    // if(str.find("http://localhost:8080/redirect_here/redirect.html") != std::string::npos)
-    // {
-    //     check_arg_key_before(str, str.find("http://localhost:8080/redirect_here/redirect.html"), cle);
-    //     check_arg_key_after(str, str.find("http://localhost:8080/redirect_here/redirect.html"), cle, "http://localhost:8080/redirect_here/redirect.html");
-
-    // }
-    // else if (str.find("http://localhost:8080/img/42.png") != std::string::npos)
-    // {
-    //     check_arg_key_before(str, str.find("http://localhost:8080/img/42.png"), cle);
-    //     check_arg_key_after(str, str.find("http://localhost:8080/img/42.png"), cle, "http://localhost:8080/img/42.png");
-    // }
-    // else
-    // {
-    //     std::cout << "Error : mauvais argument mot return" << std::endl;
-    //     exit(EXIT_FAILURE);
-    // }
 
 }
 
@@ -410,7 +382,6 @@ void  check_upload_path(const std::string &str, size_t addr_index)
             break;
         while (!std::isspace(str[addr_index]) && str[addr_index] != ';')
         {
-            std::cout << "str[addr_index] = " << str[addr_index] << std::endl; 
             if (str[addr_index] ==  '/' && str[addr_index + 1] == '/')
             {
                 std::cout << "Error : probleme dans la ligne du mot cle upload" << std::endl;
@@ -717,7 +688,6 @@ void  check_root(const std::string &str, size_t addr_index)
     {
         k++;
     }
-    
     if (k != addr_index)
     {
         addr_index = str.find("location");
@@ -736,7 +706,6 @@ void  check_root(const std::string &str, size_t addr_index)
         exit(EXIT_FAILURE);
     }
     count_word_two(str, cle);
-
     while (str[k])
     {
         if (str[k] == '/' && str[k + 1] == '/')
@@ -853,7 +822,8 @@ void create_vect_conf(const std::string &conf)
     for  ( std::string line ; std::getline( input, line) ;  )  { 
         vect.push_back(line); 
     }
-    check_line_parsing(vect);       
+    check_line_parsing(vect); 
+
 }
 
 /*******************************************************************/
@@ -1033,7 +1003,6 @@ size_t parsingBodySize(const std::string &loc_conf, const Location &general)
 
 std::map<int, std::string>    parsingErrorPage(const Location &location, const Location &general)
 {
-    struct stat statbuf;
     std::map<int, std::string> error_pages;
     size_t                      length;
     int                         code;
@@ -1050,7 +1019,6 @@ std::map<int, std::string>    parsingErrorPage(const Location &location, const L
         index = location_conf.find_first_not_of(" \t\n\r\v\f", index);
         // code 
         length = location_conf.find_first_not_of("0123456789", index) - index;
-      //  std::cout << "lengit = " << length << std::endl;
 		code = std::atoi(location_conf.substr(index, length).c_str());
         index += length;
         index = location_conf.find_first_not_of(" \t\n\r\v\f", index);
@@ -1059,14 +1027,8 @@ std::map<int, std::string>    parsingErrorPage(const Location &location, const L
         if (end == std::string::npos)
             throw confInvalidErrorPageException();
         page_path = location_conf.substr(index, end - index);
-	//	std::cout << "page error ? = " << page_path << std::endl;
         page_path.insert(0, location.getRoot() + "/");
         index += end - index;
-        // if (lstat(page_path.c_str(), &statbuf) == - 1)
-        // {
-        //     std::cout << "stop" << std::endl;
-        //     throw confInvalidErrorPageException();
-        // }
         error_pages[code] = page_path;
     }
     if (error_pages.empty())

@@ -6,7 +6,7 @@
 /*   By: ellarbi <ellarbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 12:02:34 by ellarbi           #+#    #+#             */
-/*   Updated: 2022/01/25 21:15:32 by ellarbi          ###   ########.fr       */
+/*   Updated: 2022/02/04 21:27:17 by ellarbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ Server::Server(Config &conf, std::string server_conf) :
     try
     {
         ip_str = parsingIPAddress(server_conf, &this->_ip, &this->_port);
-		std::cout << "ip_str = " << ip_str << std::endl;
         this->_name = parsingName(server_conf);
-		std::cout << "this->name = " << this->_name << std::endl;
         Location *general = new Location(std::string(), trimLocations(server_conf), Location());
         this->_routes.push_front(general);
         parsingLocations(this->_routes, server_conf);
@@ -38,16 +36,10 @@ Server::Server(Config &conf, std::string server_conf) :
         int enable = 1;
         if (setsockopt(this->_socket, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0)
             throw InternalServerError();
-        std::cout << "test 1 " << std::endl;
-        std::cout << "socket = " << _socket << std::endl;
-        std::cout << "sin addr = " << _host.sin_addr.s_addr << std::endl;
         if (bind(this->_socket, (struct sockaddr *)&this->_host, this->_addrlen) < 0)
             throw InternalServerError();
-        std::cout << "test 2 " << std::endl;
         if (listen(this->_socket, 32) < 0)
             throw InternalServerError();
-        std::cout << "test 3 " << std::endl;
-
         std::cout << "Server currently running on " << ip_str << ':' << this->_port << std::endl;
     }
     catch (std::exception &e) {
