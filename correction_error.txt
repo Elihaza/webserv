@@ -32,6 +32,8 @@ uniquement -1 ou 0 n'est pas bon, vous devriez vérifier les deux)"
                                           ========= leaks ==========
 
 -Still reachable trouver ==> nique zebi
+-changer le fichier conf par defaut 
+- comprendre le setsockopt
 
 
 

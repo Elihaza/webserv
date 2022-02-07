@@ -19,25 +19,29 @@ Server::Server(Config &conf, std::string server_conf) :
     std::string ip_str;
     try
     {
-        ip_str = parsingIPAddress(server_conf, &this->_ip, &this->_port);
-        this->_name = parsingName(server_conf);
+        ip_str = parsingIPAddress(server_conf, &this->_ip, &this->_port); //recup l'ip
+        this->_name = parsingName(server_conf); // recup le server
         Location *general = new Location(std::string(), trimLocations(server_conf), Location());
         this->_routes.push_front(general);
         parsingLocations(this->_routes, server_conf);
 
         this->_root = findRootLocation(_routes);
 
-        this->_host.sin_family = AF_INET;
-        this->_host.sin_addr.s_addr = inet_addr(ip_str.c_str());
-        this->_host.sin_port = htons(this->_port);
+
+        /*on rempli notre structure en lui specifiant la famille d'adresse, le port, l'adresse ip*/
+        this->_host.sin_family = AF_INET; // AF_INET fait référence aux adresses d'internet, adresses IP spécifiquement
+        this->_host.sin_addr.s_addr = inet_addr(ip_str.c_str()); // sin_addr est l'adresse IP de l'hôte , on utilise inet_addr pour convertir en binaire
+        this->_host.sin_port = htons(this->_port);  //sin_port contient le numéro de port, dans l'ordre des octets du réseau
         this->_addrlen = sizeof(this->_host);
-        this->_socket = socket(PF_INET, SOCK_STREAM, 0);
+        this->_socket = socket(PF_INET, SOCK_STREAM, 0); //Création d’un socket et de son descripteur , avec le protocol tcp(SOCK_STREAM)
 
         int enable = 1;
         if (setsockopt(this->_socket, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0)
             throw InternalServerError();
+        /* La fonction bind() permet de lier une socket à une adresse ou un port donnés.*/
         if (bind(this->_socket, (struct sockaddr *)&this->_host, this->_addrlen) < 0)
             throw InternalServerError();
+        /*La fonction listen() permet de mettre un socket en attente de connexion, avec le nombre maximal de connection*/
         if (listen(this->_socket, 32) < 0)
             throw InternalServerError();
         std::cout << "Server currently running on " << ip_str << ':' << this->_port << std::endl;
