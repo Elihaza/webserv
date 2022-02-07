@@ -162,7 +162,7 @@ void	Config::select_loop()
 		this->init_fd_sets(&max_socket, &current_sockets, &read_sockets, &write_sockets);
 		try
 		{
-
+			/*Les fonctions select() permettent à un programme de surveiller plusieurs descripteurs de fichier, attendant qu'au moins l'un des descripteurs de fichier devienne « prêt »*/
 			select_ret = select(max_socket + 1, &read_sockets, &write_sockets, NULL, NULL);
 			if (select_ret < 0)
 				break ;
@@ -170,6 +170,7 @@ void	Config::select_loop()
 			{
 				for (int i = 0; i < max_socket + 1; i++)
 				{
+					/*FD_ISSET() vérifie si un descripteur de fichier est utilisable */
 					if (FD_ISSET(i, &read_sockets))
 					{
 						for (it = this->_servers.begin(); it != this->_servers.end(); ++it)
@@ -177,6 +178,7 @@ void	Config::select_loop()
 							if (i == (*it)->getSocket() && (*it)->getClientSocket() < 0)
 							{
 								ret = (*it)->exec_accept();
+								/*FD_SET() ajoute,  un descripteur de fichier dans un ensemble*/
 								FD_SET(ret, &current_sockets);
 								if (ret > max_socket)
 									max_socket = ret;
@@ -184,6 +186,7 @@ void	Config::select_loop()
 							else if (FD_ISSET(i, &write_sockets) && (*it)->getClientSocket() == i)
 							{
 								(*it)->exec_server();
+								/*FD_CLR() suppriment,  un descripteur de fichier dans un ensemble*/
 								FD_CLR(i, &current_sockets);
 								FD_CLR(i, &read_sockets);
 							}

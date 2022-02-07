@@ -33,12 +33,12 @@ class Response
 		void		setLastModified();
 		std::string	formatDate(time_t timestamp);
 		void		writeStatusLine();
-		void		send_response();
+		void		send_response(Server &serv);
 		void		format_header();
 		void		check_content_type();
 
 	public:
-		Response(execRequest &my_data, int socket);
+		Response(execRequest &my_data, int socket, Server &serv);
 		~Response();
 };
 

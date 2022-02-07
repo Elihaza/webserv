@@ -25,7 +25,7 @@ Request::~Request()
 int		Request::parseRequest(int socket, const std::list<Location*> &routes)
 {
 	if (this->_bad_request == 100 && this->_body_size == 0)
-		return (this->recvBody(routes));
+		return (this->recvBody(routes, socket));
 	this->reset_body();
 	this->_stop = false;
 	this->_socket = socket;
@@ -53,7 +53,7 @@ int		Request::parseRequest(int socket, const std::list<Location*> &routes)
 		return 1;
 	}
 	if (this->_method_code == METHOD_POST && !this->_bad_request)
-		this->recvBody(routes);
+		this->recvBody(routes, socket);
 	write(1, this->_body, this->_body_size);
 	std::cout << "========= END OF REQUEST =========" << std::endl;
 	return 1;

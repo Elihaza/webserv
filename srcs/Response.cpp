@@ -14,7 +14,7 @@
 
 # define BUF_SIZE 500
 
-Response::Response(execRequest &my_data, int socket) :  
+Response::Response(execRequest &my_data, int socket, Server &serv) :  
 	_data(my_data), _socket(socket), _buf(NULL), _idx(0), _buf_size(0)
 {
 	if (this->_data.getBuf())
@@ -35,7 +35,7 @@ Response::Response(execRequest &my_data, int socket) :
 	this->setLastModified();
 	this->_headers["Server"] = std::string("webserv/4.2");
 	this->check_content_type();
-	this->send_response();
+	this->send_response(serv);
 
 }
 
@@ -147,7 +147,7 @@ void		Response::check_content_type()
 }
 
 
-void			Response::send_response()
+void			Response::send_response(Server &serv)
 {
 	char *to_send = NULL;
 	int size;
@@ -173,8 +173,17 @@ void			Response::send_response()
 	write(1, to_send, size);
 	std::cout << "---------------------------------------" << std::endl;
 	// Actually sending to socket
-	send(this->_socket, to_send, size, 0);
-	delete [] to_send;
-	to_send = NULL;
-}
+	int send_ret  = send(this->_socket, to_send, size, 0);
+	if (send_ret < 0)
+	{
+		delete [] to_send;
+		to_send = NULL;
+		close(serv.getClientSocket());
+	}
 
+	else if (send_ret >= 0)
+	{
+		delete [] to_send;
+		to_send = NULL;
+	}
+}

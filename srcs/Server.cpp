@@ -69,6 +69,7 @@ Server::~Server()
 
 int 	Server::exec_accept()
 { 
+    /*accept - Accepter une connexion sur une socket , et renvoie un nouveau descripteur de fichier qui fait référence à cette socket*/
     if ((this->_client_socket = accept(this->_socket, (struct sockaddr *)&this->_host, (socklen_t*)&this->_addrlen)) < 0)
         throw InternalServerError();
     fcntl(this->_client_socket, F_SETFL, O_NONBLOCK);

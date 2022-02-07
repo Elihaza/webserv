@@ -13,7 +13,7 @@
 #include "include/Request.hpp"
 
 
-int			Request::recvBody(const std::list<Location*> &routes)
+int			Request::recvBody(const std::list<Location*> &routes, int sock)
 {
 	this->_bad_request = 0;
 	this->setMaxBodySize(routes);
@@ -25,7 +25,7 @@ int			Request::recvBody(const std::list<Location*> &routes)
 			return 1;
 		}
 		for (int i = 0; i < std::atoi(this->_headers["Content-Length"].c_str()); i++)
-			this->recvBodyCL(1);
+			this->recvBodyCL(1, sock);
 	}
 	else if (!this->getHeaderField("Transfer-Encoding").compare("chunked"))
 		recvChunk();
@@ -34,7 +34,7 @@ int			Request::recvBody(const std::list<Location*> &routes)
 	return 1;
 }
 
-int			Request::recvBodyCL(int size)
+int			Request::recvBodyCL(int size, int sock)
 {
 	unsigned char *recv_buf;
 	int  recv_ret;
@@ -53,6 +53,7 @@ int			Request::recvBodyCL(int size)
 		if (recv_ret < 0)
 		{
 			delete [] recv_buf;
+			close(sock);
 			return (-1);
 		}
 		if (recv_ret > 0)
@@ -119,7 +120,10 @@ unsigned char	Request::recv_one()
 		c = 0;
 		recv_ret = recv(this->_socket, &c, 1, 0);
 		if (recv_ret < 0)
+		{
+			close(_socket);
 			return (-1);
+		}
 		if (recv_ret > 0)
 			break ;
 		else

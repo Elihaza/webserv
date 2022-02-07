@@ -1,15 +1,6 @@
                                     ======= SERVER =======
 
-- "Il ne doit y avoir qu'une seule lecture ou une seule écriture par client par sélection (ou équivalent). Demandez à
-vous montrer le code qui va de la sélection (ou équivalent) à la lecture et à l'écriture d'un client"
-
-- "Rechercher tous les read/recv/write/send sur un socket et vérifier que si une erreur est retournée le client est
-supprimé"
-
-- "Recherchez tous les read/recv/write/send et vérifiez si la valeur retournée est bien vérifiée. (vérifier
-uniquement -1 ou 0 n'est pas bon, vous devriez vérifier les deux)"
-
-
+-ok
                                 ======= CONFIGURATION =======
 
 -ok
@@ -34,6 +25,7 @@ uniquement -1 ou 0 n'est pas bon, vous devriez vérifier les deux)"
 -Still reachable trouver ==> nique zebi
 -changer le fichier conf par defaut 
 - comprendre le setsockopt
+- comprendre la partie client 
 
 
 

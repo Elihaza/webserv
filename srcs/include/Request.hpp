@@ -36,8 +36,8 @@ class Request
 
 		void			resetHeaders();
 		int				recvHeader();
-		int				recvBody(const std::list<Location*> &routes);
-		int				recvBodyCL(int size);
+		int				recvBody(const std::list<Location*> &routes, int sock);
+		int				recvBodyCL(int size, int sock);
 		int				recv_data();
 		int				recvChunk();
 		unsigned char	recv_one();

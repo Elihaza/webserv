@@ -51,7 +51,7 @@ execRequest::execRequest(Server &serv)
 	this->setStatusCode();
 	if (autoindex == false)
 		this->exec_method();
-	Response((*this), this->_server.getClientSocket());
+	Response((*this), this->_server.getClientSocket(), serv);
 }
 
 execRequest::~execRequest() 
