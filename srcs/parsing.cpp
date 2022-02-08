@@ -282,7 +282,6 @@ void check_return(const std::string &str, size_t addr_index)
     }
     count_word_three(str, cle);
 
-    size_t indicateur = 0;
     while (std::isspace(str[k]))
     {
         k++;
@@ -301,9 +300,9 @@ void check_return(const std::string &str, size_t addr_index)
     while(std::isspace(str[k]))
         k++;
     
-    k = str.find("http://");
+  
 
-    if (str[k] == std::string::npos)
+    if (str.find("http://") == std::string::npos)
     {
         std::cout << "Error : mauvais argument mot return" << std::endl;
         exit(EXIT_FAILURE);
@@ -370,7 +369,6 @@ void  check_upload_path(const std::string &str, size_t addr_index)
     }
     count_word_two(str, cle);
     
-    int a = 0;
     addr_index = k;
     while (str[addr_index])
     {
@@ -723,7 +721,6 @@ void  check_root(const std::string &str, size_t addr_index)
 void  check_server_name(const std::string &str, size_t addr_index)
 {
     /*regarder si avant le mot cle j'ai un character interdit*/
-    size_t k = 0;
     std::string cle = "server_name";
     addr_index = str.find("server_name");
     check_before_key(str, addr_index, cle);
@@ -972,7 +969,6 @@ std::string    parsingCGIconf(const std::string &location_conf, const Location &
 {
     size_t      index = location_conf.find("cgi_path");
     std::string cgi_path;
-    struct stat statbuf;
 
     if (index == std::string::npos)
         return (general.getCGIPath());

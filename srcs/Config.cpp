@@ -14,6 +14,12 @@
 
 # define BUFF_SIZE 1000
 
+static void			ctr_c(int num)
+{
+	(void)num;
+	g_ctrl_c = 1;
+}
+
 Config::Config() { g_ctrl_c = 0;}
 
 Config::Config(std::string conf_file) : _servers()
@@ -154,6 +160,7 @@ void	Config::select_loop()
 
     while (1)
     {
+		signal(SIGINT, &ctr_c);
 		if (g_ctrl_c)
 		{
 			std::cout << "break..." << std::endl;
