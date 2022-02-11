@@ -6,7 +6,7 @@
 /*   By: ellarbi <ellarbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 09:49:40 by ellarbi           #+#    #+#             */
-/*   Updated: 2022/02/04 21:29:10 by ellarbi          ###   ########.fr       */
+/*   Updated: 2022/02/11 18:03:04 by ellarbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,10 +162,7 @@ void	Config::select_loop()
     {
 		signal(SIGINT, &ctr_c);
 		if (g_ctrl_c)
-		{
-			std::cout << "break..." << std::endl;
 			break ;
-		}
 		this->init_fd_sets(&max_socket, &current_sockets, &read_sockets, &write_sockets);
 		try
 		{
