@@ -1,0 +1,31 @@
+                                    ======= SERVER =======
+
+-ok
+                                ======= CONFIGURATION =======
+
+-ok
+
+                                    ======= BASIC CHECKS =======
+-ok
+
+                                    ======= NAVIGATEUR =======
+
+-ok
+
+                                    ======= Port issues =======
+
+-ok
+
+                                    ======= SiEGE ET STRESS TEST =======
+
+-ok
+
+                                          ========= leaks ==========
+
+-Still reachable trouver ==> nique zebi
+-changer le fichier conf par defaut 
+- comprendre le setsockopt
+- comprendre la partie client 
+
+
+

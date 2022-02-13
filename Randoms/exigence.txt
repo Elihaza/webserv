@@ -1,0 +1,64 @@
+
+
+
+                                        Exigences Du Sujet :
+                                    ---------------------------
+
+
+
+ serveur web = stocker, traiter, délivrer des pages web ET reçevoir du contenu (Formulaires, fichiers via upload)
+ pages web = Documents HTML ET/OU (images, feuille de style (CSS), scripts, etc).
+
+ Navigateur -> requete http -> serveur web Navigateur <- réponse http <- serveur web
+
+ On doit être conforme aux exigences ci-dessous. A chaque fois qu’il sera fait mention de la fonction POLL, 
+ nous faisons référence aux fonctions POLL, SELECT, KQUEUE et EPOLL.
+
+
+                                         Exigences General :
+                                    ---------------------------
+
+00/ Le code doit pouvoir compiler avec le standard c++98 et sans librairie externe.
+01/ Être compatible avec le navigateur de notre choix.
+02/ Être conforme à la norme HTTP 1.1 (Se référer à NGINX dans le doute).
+03/ Chacune des entrées/sorties doivent utiliser 1 seul select() et être non-bloquante.
+04/ select() doit vérifier la lecture et l’écriture en meme temps
+05/ Le serveur ne doit jamais être bloqué et le client doit être redirigé correctement si nécessaire.
+06/ Il est interdit de faire une opération lecture/écriture sans passer par select().
+07/ Interdiction de vérifier la valeur ERRNO après une opération de lecture/écriture.
+08/ Une requête vers le serveur ne dois jamais rester en suspens.
+09/ Le serveur doit avoir des pages d’erreur par défaut si aucune n’est fournie.
+10/ Le programme ne devrait pas avoir de fuites de mémoire et ne devrait jamais planter (même s’il manque de mémoire si toute l’initialisation est faite).
+11/ Interdiction d’utiliser FORK pour autre chose que des CGIs.
+12/ Interdiction d’utiliser EXECVE pour lancer un autre serveur web.
+13/ Le programme doit avoir un fichier de configuration en argument, OU utiliser un chemin par défaut.
+14/ l n’y a pas besoin de se servir de select() avant de lire le fichier de configuration.
+15/ Le serveur doit pouvoir servir un site web entièrement statique.
+16/ Le client doit pouvoir uploader des fichiers.
+17/ Les codes de réponse HTTP doivent être exacts.
+18/ Il faut au minimum les méthodes GET POST DELETE.
+19/ Même en cas de stress test le serveur doit rester disponible.
+20/ Le serveur peut écouter plusieurs port.
+
+
+                                         Exigences Du fichier De Conf :
+                                    --------------------------------------
+
+30/ Choisir l’hote et le port de chaque serveur.
+31/ Pouvoir mettre en place des server_names ou non.
+32/ Mettre en place des pages d’erreur.
+33/ Limiter le client body size
+34/ Configuer des routes à l’aide de plusieurs règles (cf pavé ci-dessous).
+
+
+                                         Exigences 34 plus precis :
+                                    --------------------------------------
+
+34_00/ Pouvoir définir une liste de méthodes HTTP accepté
+34_01/ Pouvoir définir une redirection HTTP.
+34_02/ Pouvoir definir un dossier/fichier à partir duquel d’autre fichier seront recherchés.
+34_03/ Pouvoir activer ou désactiver le listage des dossier.
+34_04/ Pouvoir mettre en place un fichier par défaut si la requête est un dossier.
+34_05/ Pouvoir executer un CGI basé selon l’extension du fichier.
+34_06/ Pouvoir faire un chemin qui accepte les fichier “uploadé” et configurer l’emplacement ou ils seront sauvegardés.
+
