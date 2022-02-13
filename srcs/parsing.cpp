@@ -6,7 +6,7 @@
 /*   By: ellarbi <ellarbi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 14:13:12 by ellarbi           #+#    #+#             */
-/*   Updated: 2022/02/04 21:29:25 by ellarbi          ###   ########.fr       */
+/*   Updated: 2022/02/13 16:42:46 by ellarbi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 // **************************************** //
 
 /*************************************************************************/
-
-
-/* Code fait par Rayane*/
 
 void count_word_one_err(const std::string &str, const std::string &cle)
 {
@@ -269,7 +266,6 @@ void check_max_body_size(const std::string &str, size_t addr_index)
 
 void check_return(const std::string &str, size_t addr_index)
 {
-    //size_t k = 0;
     addr_index = str.find("return");
     std::string cle = "return";
     check_before_key(str, addr_index, cle);
@@ -356,7 +352,6 @@ void  check_index(const std::string &str, size_t addr_index)
 
 void  check_upload_path(const std::string &str, size_t addr_index)
 {
-    //size_t k = 0;
     addr_index = str.find("upload_path");
     std::string cle = "upload_path";
     check_before_key(str, addr_index, cle);
@@ -978,8 +973,6 @@ std::string    parsingCGIconf(const std::string &location_conf, const Location &
     if (end == std::string::npos)
         throw confInvalidCGIException();
     cgi_path = location_conf.substr(index, end - index);
-    // if (lstat(cgi_path.c_str(), &statbuf) == - 1)
-    //     throw confInvalidCGIException();
     return (cgi_path);
 }
 
